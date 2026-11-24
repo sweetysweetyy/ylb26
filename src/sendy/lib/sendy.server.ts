@@ -1,6 +1,7 @@
 import { sy } from "@/sendy/lib/db";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { formatMailgunFrom, getUserMailgunConfig } from "@/lib/mailgun.server";
 
 export type MailAttachment = { filename: string; contentType: string; base64: string };
 export type MailDocLink = { app_source: string; document_id: string; document_number?: string | null };
@@ -18,13 +19,12 @@ export async function sendSendyMail(
   userId: string,
   data: { to: string; cc?: string; subject: string; text: string; attachments?: MailAttachment[]; link?: MailDocLink },
 ): Promise<{ ok: true; messageId: string | null } | { ok: false; error: string }> {
-  const apiKey = process.env["MAILGUN_API_KEY"];
-  const domain = process.env["MAILGUN_DOMAIN"];
-  const base = (process.env["MAILGUN_API_BASE"] || "https://api.mailgun.net").replace(/\/$/, "");
-  if (!apiKey || !domain) return { ok: false, error: "Mailgun n'est pas configuré." };
+  const cfg = await getUserMailgunConfig(db, userId);
+  if (!cfg) return { ok: false, error: "Mailgun n'est pas configuré. Rendez-vous dans Paramètres → Connexion Mailgun." };
+  const { apiKey, domain, apiBase: base } = cfg;
 
   const { data: mb } = await sy(db).from("sendy_mailboxes").select("local_part, display_name").eq("user_id", userId).maybeSingle();
-  if (!mb) return { ok: false, error: "Aucune adresse Sendy réservée. Ouvrez SENDYME pour en créer une." };
+  if (!mb && !cfg.fromEmail) return { ok: false, error: "Aucune adresse Sendy réservée. Ouvrez SENDYME pour en créer une ou renseignez un expéditeur dans Paramètres → Connexion Mailgun." };
 
   const emailRe = /^[^\s@<>,]+@[^\s@<>,]+\.[^\s@<>,]+$/;
   const split = (s?: string) => (s ?? "").split(/[,;]/).map((x) => x.trim()).filter(Boolean);
@@ -35,7 +35,10 @@ export async function sendSendyMail(
   const files = (data.attachments ?? []).map((a) => ({ ...a, bytes: b64ToBytes(a.base64) }));
 
   const form = new FormData();
-  form.append("from", `${String(mb.display_name).replace(/["<>]/g, "")} <${mb.local_part}@${domain}>`);
+  const fromAddr = mb
+    ? `${String(mb.display_name).replace(/["<>]/g, "")} <${mb.local_part}@${domain}>`
+    : formatMailgunFrom(cfg, "contact", "Sendy");
+  form.append("from", fromAddr);
   to.forEach((t) => form.append("to", t));
   cc.forEach((c) => form.append("cc", c));
   form.append("subject", data.subject || "(sans objet)");
@@ -59,8 +62,8 @@ export async function sendSendyMail(
   const { data: msg } = await sy(supabaseAdmin).from("sendy_mail_messages").insert({
     user_id: userId,
     folder: "sent",
-    from_address: `${mb.local_part}@${domain}`,
-    from_name: mb.display_name,
+    from_address: mb ? `${mb.local_part}@${domain}` : (cfg.fromEmail ?? `contact@${domain}`),
+    from_name: mb?.display_name ?? cfg.fromName ?? "Sendy",
     to_addresses: to.join(", "),
     cc_addresses: cc.join(", ") || null,
     subject: data.subject || "(sans objet)",

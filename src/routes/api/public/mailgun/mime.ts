@@ -1,16 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import PostalMime from "postal-mime";
-
-async function verifySignature(key: string, timestamp: string, token: string, signature: string) {
-  const enc = new TextEncoder();
-  const k = await crypto.subtle.importKey("raw", enc.encode(key), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
-  const mac = new Uint8Array(await crypto.subtle.sign("HMAC", k, enc.encode(timestamp + token)));
-  const hex = Array.from(mac).map((b) => b.toString(16).padStart(2, "0")).join("");
-  if (hex.length !== signature.length) return false;
-  let diff = 0;
-  for (let i = 0; i < hex.length; i++) diff |= hex.charCodeAt(i) ^ signature.charCodeAt(i);
-  return diff === 0;
-}
+import { findMailgunConfigsByDomains, verifyMailgunHmac } from "@/lib/mailgun.server";
 
 function addresses(s: string) {
   return (s.match(/[^\s<>,;"]+@[^\s<>,;"]+/g) ?? []).map((a) => a.toLowerCase());
@@ -21,31 +11,42 @@ export const Route = createFileRoute("/api/public/mailgun/mime")({
     handlers: {
       GET: async () => new Response("Nova Mail inbound endpoint OK"),
       POST: async ({ request }) => {
-        const signingKey = process.env["MAILGUN_WEBHOOK_SIGNING_KEY"];
-        const domain = (process.env["MAILGUN_DOMAIN"] ?? "").toLowerCase();
-        if (!signingKey || !domain) return new Response("Not configured", { status: 500 });
-
         const form = await request.formData();
         const ts = String(form.get("timestamp") ?? "");
         const token = String(form.get("token") ?? "");
         const sig = String(form.get("signature") ?? "");
-        if (!ts || !token || !sig || Math.abs(Date.now() / 1000 - Number(ts)) > 900)
+        if (!ts || !token || !sig) return new Response("Invalid signature", { status: 401 });
+
+        const allRecipients = addresses(String(form.get("recipient") ?? form.get("To") ?? ""));
+        const domains = allRecipients.map((a) => a.split("@")[1] ?? "").filter(Boolean);
+        const candidates = await findMailgunConfigsByDomains(domains);
+        if (!candidates.length) return new Response("Not configured", { status: 500 });
+
+        let matched: (typeof candidates)[number] | null = null;
+        for (const c of candidates) {
+          if (c.config.signingKey && (await verifyMailgunHmac(c.config.signingKey, ts, token, sig))) {
+            matched = c;
+            break;
+          }
+        }
+        if (!matched)
           return new Response("Invalid signature", { status: 401 });
-        if (!(await verifySignature(signingKey, ts, token, sig)))
-          return new Response("Invalid signature", { status: 401 });
+
+        const domain = matched.config.domain.toLowerCase();
 
         const rawMime = form.get("body-mime");
         const raw = typeof rawMime === "string" ? rawMime : null;
         const parsed = raw ? await PostalMime.parse(raw) : null;
 
-        const recipients = addresses(String(form.get("recipient") ?? form.get("To") ?? ""))
-          .filter((a) => a.endsWith("@" + domain));
+        const recipients = allRecipients.filter((a) => a.endsWith("@" + domain));
         const locals = [...new Set(recipients.map((a) => a.split("@")[0] ?? ""))];
         if (!locals.length) return new Response("No local recipient", { status: 200 });
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const { data: boxes } = await supabaseAdmin.from("sendy_mailboxes").select("user_id, local_part").in("local_part", locals);
-        if (!boxes?.length) return new Response("Unknown recipient", { status: 406 });
+        const targetUserIds = new Set<string>((boxes ?? []).map((b) => b.user_id));
+        if (targetUserIds.size === 0 && matched.userId) targetUserIds.add(matched.userId);
+        if (targetUserIds.size === 0) return new Response("Unknown recipient", { status: 406 });
 
         const fromHeader = String(form.get("from") ?? form.get("From") ?? form.get("sender") ?? "");
         const fromAddr = parsed?.from?.address ?? addresses(fromHeader)[0] ?? "";
@@ -72,9 +73,9 @@ export const Route = createFileRoute("/api/public/mailgun/mime")({
           }
         }
 
-        for (const box of boxes) {
+        for (const userId of targetUserIds) {
           const { data: msg, error } = await supabaseAdmin.from("sendy_mail_messages").insert({
-            user_id: box.user_id,
+            user_id: userId,
             folder: "inbox",
             from_address: fromAddr,
             from_name: fromName,
@@ -90,11 +91,11 @@ export const Route = createFileRoute("/api/public/mailgun/mime")({
           if (error || !msg) { console.error("insert failed", error); return new Response("DB error", { status: 500 }); }
           for (const f of files) {
             const safe = f.name.replace(/[^\w.\-]+/g, "_").slice(0, 120);
-            const path = `${box.user_id}/${msg.id}/${crypto.randomUUID()}-${safe}`;
+            const path = `${userId}/${msg.id}/${crypto.randomUUID()}-${safe}`;
             const up = await supabaseAdmin.storage.from("sendy-attachments").upload(path, f.data, { contentType: f.type || "application/octet-stream" });
             if (up.error) { console.error("upload failed", up.error); continue; }
             await supabaseAdmin.from("sendy_mail_attachments").insert({
-              message_id: msg.id, user_id: box.user_id, filename: f.name, content_type: f.type, size_bytes: f.data.byteLength, storage_path: path,
+              message_id: msg.id, user_id: userId, filename: f.name, content_type: f.type, size_bytes: f.data.byteLength, storage_path: path,
             });
           }
         }

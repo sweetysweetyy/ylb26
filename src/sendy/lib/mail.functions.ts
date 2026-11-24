@@ -2,19 +2,17 @@ import { sy } from "@/sendy/lib/db";
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-
-function mailgunBase() {
-  return (process.env["MAILGUN_API_BASE"] || "https://api.mailgun.net").replace(/\/$/, "");
-}
+import { getUserMailgunConfig, normalizeApiBase } from "@/lib/mailgun.server";
 
 export const getMailConfig = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .handler(async () => {
+  .handler(async ({ context }) => {
+    const cfg = await getUserMailgunConfig(context.supabase, context.userId);
     return {
-      domain: process.env["MAILGUN_DOMAIN"] ?? "",
-      hasApiKey: Boolean(process.env["MAILGUN_API_KEY"]),
-      hasSigningKey: Boolean(process.env["MAILGUN_WEBHOOK_SIGNING_KEY"]),
-      apiBase: mailgunBase(),
+      domain: cfg?.domain ?? "",
+      hasApiKey: Boolean(cfg?.apiKey),
+      hasSigningKey: Boolean(cfg?.signingKey),
+      apiBase: cfg?.apiBase ?? normalizeApiBase(),
     };
   });
 

@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { sendMailgunEmail, mailgunConfigured } from "./mailgun.server";
+import { getUserMailgunConfig } from "@/lib/mailgun.server";
 
 export const FILES_BUCKET = "opportunity-files";
 
@@ -14,7 +15,10 @@ async function audit(sb: any, userId: string, oppId: string | null, action: stri
 // --- Email provider status ----------------------------------------------
 export const getEmailProviderStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .handler(async () => ({ mailgun: mailgunConfigured() }));
+  .handler(async ({ context }) => {
+    const cfg = await getUserMailgunConfig(context.supabase, context.userId);
+    return { mailgun: mailgunConfigured(cfg) };
+  });
 
 // --- Activities (email / meeting / task / note) -------------------------
 const ActivitySchema = z.object({
@@ -44,8 +48,9 @@ export const createActivity = createServerFn({ method: "POST" })
       if (!data.to) throw new Error("Destinataire requis");
       let emailStatus = "queued";
       let providerId: string | null = null;
-      if (mailgunConfigured()) {
-        const r = await sendMailgunEmail({ to: data.to, subject: data.title, text: data.content, oppId: data.opportunityId });
+      const mgCfg = await getUserMailgunConfig(context.supabase, context.userId);
+      if (mailgunConfigured(mgCfg)) {
+        const r = await sendMailgunEmail({ to: data.to, subject: data.title, text: data.content, oppId: data.opportunityId, config: mgCfg });
         emailStatus = "sent";
         providerId = r.id;
         status = "done";

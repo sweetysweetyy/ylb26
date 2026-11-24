@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { verifyMailgunSignature } from "@/crm/lib/mailgun.server";
+import { findMailgunConfigsByDomains } from "@/lib/mailgun.server";
 
 // Mailgun inbound route target. Configure in Mailgun: forward("https://<app>/api/public/crm-mailgun/inbound")
 export const Route = createFileRoute("/api/public/crm-mailgun/inbound")({
@@ -7,11 +8,24 @@ export const Route = createFileRoute("/api/public/crm-mailgun/inbound")({
     handlers: {
       POST: async ({ request }) => {
         const form = await request.formData();
-        const ok = await verifyMailgunSignature(
-          String(form.get("timestamp") ?? ""),
-          String(form.get("token") ?? ""),
-          String(form.get("signature") ?? ""),
-        );
+        const ts = String(form.get("timestamp") ?? "");
+        const token = String(form.get("token") ?? "");
+        const sig = String(form.get("signature") ?? "");
+        const recipientRaw = String(form.get("recipient") ?? form.get("To") ?? "").toLowerCase();
+        const recipientDomains = (recipientRaw.match(/[^\s<>,;"]+@([^\s<>,;"]+)/g) ?? [])
+          .map((a) => a.split("@")[1] ?? "")
+          .filter(Boolean);
+        const candidates = await findMailgunConfigsByDomains(recipientDomains);
+
+        let matchedUserId: string | null = null;
+        let ok = false;
+        for (const c of candidates) {
+          if (c.config.signingKey && (await verifyMailgunSignature(ts, token, sig, c.config.signingKey))) {
+            ok = true;
+            matchedUserId = c.userId;
+            break;
+          }
+        }
         if (!ok) return new Response("invalid signature", { status: 401 });
 
         const sender = String(form.get("sender") ?? form.get("from") ?? "").toLowerCase();
@@ -20,8 +34,10 @@ export const Route = createFileRoute("/api/public/crm-mailgun/inbound")({
         const email = match[0];
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { data: opps } = await supabaseAdmin
+        let oppsQuery = supabaseAdmin
           .from("crm_opportunities").select("id,user_id,name").ilike("contact_email", email);
+        if (matchedUserId) oppsQuery = oppsQuery.eq("user_id", matchedUserId);
+        const { data: opps } = await oppsQuery;
         const subject = String(form.get("subject") ?? "");
         const body = String(form.get("stripped-text") ?? form.get("body-plain") ?? "");
         const messageId = String(form.get("Message-Id") ?? "");
