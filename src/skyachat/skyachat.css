@@ -1,0 +1,92 @@
+/* SkyAchat — styles isolés sous .skyachat-theme */
+@theme inline {
+  --color-holo-1: var(--holo-1);
+  --color-holo-2: var(--holo-2);
+  --color-holo-3: var(--holo-3);
+  --color-success: var(--success);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-paper: var(--paper);
+  --color-paper-foreground: var(--paper-foreground);
+  --shadow-paper: var(--shadow-paper);
+}
+
+.skyachat-theme {
+  --radius: 0.9rem;
+  --background: oklch(0.14 0.02 275);
+  --foreground: oklch(0.96 0.01 270);
+  --card: oklch(0.2 0.025 275 / 55%);
+  --card-foreground: oklch(0.96 0.01 270);
+  --popover: oklch(0.19 0.025 275);
+  --popover-foreground: oklch(0.96 0.01 270);
+  --primary: oklch(0.78 0.14 215);
+  --primary-foreground: oklch(0.15 0.03 260);
+  --secondary: oklch(0.26 0.03 275 / 70%);
+  --secondary-foreground: oklch(0.95 0.01 270);
+  --muted: oklch(0.24 0.025 275 / 60%);
+  --muted-foreground: oklch(0.7 0.03 270);
+  --accent: oklch(0.3 0.06 300 / 60%);
+  --accent-foreground: oklch(0.97 0.01 270);
+  --destructive: oklch(0.65 0.21 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.78 0.14 215);
+  --success: oklch(0.78 0.17 155);
+  --holo-1: oklch(0.78 0.14 215);
+  --holo-2: oklch(0.7 0.2 305);
+  --holo-3: oklch(0.82 0.13 75);
+  --paper: oklch(0.99 0.003 270);
+  --paper-foreground: oklch(0.2 0.02 270);
+  --glass: oklch(0.22 0.025 275 / 45%);
+  --glass-border: oklch(1 0 0 / 12%);
+  --gradient-holo: linear-gradient(120deg, var(--holo-1), var(--holo-2) 50%, var(--holo-3));
+  --chart-1: oklch(0.78 0.14 215);
+  --chart-2: oklch(0.7 0.2 305);
+  --chart-3: oklch(0.82 0.13 75);
+  --chart-4: oklch(0.78 0.17 155);
+  --chart-5: oklch(0.65 0.21 20);
+  --sidebar: oklch(0.17 0.025 275 / 60%);
+  --sidebar-foreground: oklch(0.92 0.01 270);
+  --sidebar-primary: oklch(0.78 0.14 215);
+  --sidebar-primary-foreground: oklch(0.15 0.03 260);
+  --sidebar-accent: oklch(1 0 0 / 7%);
+  --sidebar-accent-foreground: oklch(0.98 0.01 270);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.78 0.14 215);
+  --shadow-paper: 0 1px 0 oklch(1 0 0 / 6%) inset, 0 24px 60px -20px oklch(0 0 0 / 60%);
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  color-scheme: dark;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+.skyachat-theme {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(60rem 40rem at 10% -10%, oklch(0.55 0.18 300 / 22%), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 0%, oklch(0.6 0.14 215 / 20%), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, oklch(0.7 0.13 75 / 12%), transparent 60%);
+  min-height: 100vh;
+}
+.skyachat-theme * { border-color: var(--border); }
+.skyachat-theme h1, .skyachat-theme h2, .skyachat-theme h3, .skyachat-theme .font-display { font-family: var(--font-display); letter-spacing: -0.03em; }
+.skyachat-theme h1, .skyachat-theme h2, .skyachat-theme h3 { font-weight: 600; }
+
+@utility sa-glass {
+  background: var(--glass);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid var(--glass-border);
+}
+@utility sa-bg-holo { background-image: var(--gradient-holo); }
+@utility sa-text-holo {
+  background-image: var(--gradient-holo);
+  background-clip: text;
+  color: transparent;
+}
+@utility sa-halo { box-shadow: 0 0 0 1px oklch(1 0 0 / 8%), 0 10px 40px -10px color-mix(in oklab, var(--holo-2) 55%, transparent), 0 0 60px -20px color-mix(in oklab, var(--holo-1) 60%, transparent); }
+@keyframes sa-live-pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .4; transform: scale(1.6);} }
+@utility sa-animate-live { animation: sa-live-pulse 1.6s ease-in-out infinite; }
+@keyframes sa-holo-shift { to { background-position: 200% 50%; } }
+@utility sa-animate-holo { background-size: 200% 100%; animation: sa-holo-shift 6s linear infinite; }
+@media print { body.skyachat-theme { background: white; } }

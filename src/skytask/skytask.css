@@ -1,0 +1,171 @@
+/* ===== SKY TASK (scoped) ===== */
+.sky-task {
+  --radius: 1.25rem;
+  /* palette: #001952 #043775 #12769E #FCF6F3 */
+  --navy: oklch(0.24 0.11 263);
+  --ocean: oklch(0.33 0.12 258);
+  --sky: oklch(0.53 0.1 230);
+  --pearl: oklch(0.975 0.008 50);
+  --background: oklch(0.19 0.09 264);
+  --foreground: var(--pearl);
+  --cream: var(--pearl);
+  --sage: var(--sky);
+  --ink: oklch(0.22 0.1 263);
+  --ink-foreground: var(--pearl);
+  --card: oklch(0.33 0.12 258 / 0.28);
+  --card-foreground: var(--pearl);
+  --popover: oklch(0.24 0.11 263);
+  --popover-foreground: var(--pearl);
+  --primary: oklch(0.72 0.13 225);
+  --primary-foreground: oklch(0.19 0.09 264);
+  --secondary: oklch(0.975 0.008 50 / 0.1);
+  --secondary-foreground: var(--pearl);
+  --muted: oklch(0.975 0.008 50 / 0.08);
+  --muted-foreground: oklch(0.82 0.04 240);
+  --accent: oklch(0.975 0.008 50 / 0.12);
+  --accent-foreground: var(--pearl);
+  --destructive: oklch(0.68 0.18 20);
+  --destructive-foreground: var(--pearl);
+  --border: oklch(0.975 0.008 50 / 0.14);
+  --input: oklch(0.975 0.008 50 / 0.16);
+  --ring: oklch(0.72 0.13 225);
+  --chart-1: oklch(0.72 0.13 225);
+  --chart-2: oklch(0.53 0.1 230);
+  --chart-3: oklch(0.33 0.12 258);
+  --chart-4: oklch(0.8 0.1 300);
+  --chart-5: var(--pearl);
+  --sidebar: oklch(0.24 0.11 263);
+  --sidebar-foreground: var(--pearl);
+  --sidebar-primary: oklch(0.72 0.13 225);
+  --sidebar-primary-foreground: var(--pearl);
+  --sidebar-accent: oklch(0.33 0.12 258);
+  --sidebar-accent-foreground: var(--pearl);
+  --sidebar-border: oklch(0.975 0.008 50 / 0.14);
+  --sidebar-ring: oklch(0.72 0.13 225);
+
+  --gradient-holo: linear-gradient(110deg, oklch(0.8 0.12 300), oklch(0.78 0.13 225), oklch(0.53 0.1 230), oklch(0.975 0.008 50));
+  --gradient-ambient:
+    radial-gradient(45% 40% at 85% 0%, oklch(0.53 0.1 230 / 0.35), transparent 70%),
+    radial-gradient(50% 50% at 0% 30%, oklch(0.33 0.12 258 / 0.7), transparent 70%),
+    radial-gradient(70% 40% at 100% 120%, oklch(0.72 0.13 225 / 0.55), transparent 60%),
+    linear-gradient(160deg, oklch(0.16 0.08 264), oklch(0.24 0.11 263) 55%, oklch(0.2 0.1 262));
+  --gradient-ink: linear-gradient(150deg, oklch(0.33 0.12 258 / 0.55), oklch(0.2 0.1 263 / 0.6));
+  --gradient-pearl: linear-gradient(135deg, oklch(0.975 0.008 50 / 0.96), oklch(0.9 0.04 290 / 0.92) 55%, oklch(0.88 0.05 230 / 0.92));
+  --shadow-glass: 0 1px 0 0 oklch(1 0 0 / 0.18) inset, 0 0 0 1px oklch(0.72 0.13 225 / 0.08), 0 24px 60px -30px oklch(0.1 0.08 264 / 0.9);
+  background-color: var(--background);
+  background-image: var(--gradient-ambient);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+.sky-task select option { background: var(--popover); color: var(--popover-foreground); }
+.sky-task input[type="datetime-local"] { color-scheme: dark; }
+/* Smart accents chosen by the user */
+.sky-task[data-accent="olive"] { --primary: oklch(0.78 0.12 180); --ring: oklch(0.78 0.12 180); }
+.sky-task[data-accent="graphite"] { --primary: oklch(0.975 0.008 50); --ring: oklch(0.975 0.008 50); }
+.sky-task[data-accent="aurora"] { --primary: oklch(0.76 0.12 290); --ring: oklch(0.76 0.12 290); }
+.sky-task[data-accent="rose"] { --primary: oklch(0.74 0.13 10); --ring: oklch(0.74 0.13 10); }
+
+
+.sky-task .sk-glass {
+  background: var(--card);
+  backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid oklch(0.975 0.008 50 / 0.16);
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-2xl);
+}
+
+@utility bento-ink {
+  background: var(--gradient-ink);
+  backdrop-filter: blur(24px);
+  border: 1px solid oklch(0.975 0.008 50 / 0.18);
+  color: var(--ink-foreground);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility bento-pearl {
+  background: var(--gradient-pearl);
+  color: var(--navy);
+  border-radius: var(--radius-2xl);
+  box-shadow: 0 0 40px -10px oklch(0.8 0.1 290 / 0.5), 0 1px 0 0 oklch(1 0 0 / 0.9) inset;
+}
+
+@utility planet-glow {
+  position: fixed;
+  right: -20vw;
+  bottom: -55vh;
+  width: 90vw;
+  height: 75vh;
+  border-radius: 50%;
+  pointer-events: none;
+  border-top: 2px solid oklch(0.85 0.1 225 / 0.8);
+  box-shadow: 0 -20px 80px oklch(0.72 0.13 225 / 0.55), inset 0 30px 80px oklch(0.72 0.13 225 / 0.35);
+  z-index: 0;
+}
+
+@utility orb {
+  background: radial-gradient(circle at 35% 30%, oklch(0.975 0.008 50), oklch(0.78 0.13 225) 45%, oklch(0.53 0.1 230) 75%, oklch(0.33 0.12 258));
+  box-shadow: 0 0 24px oklch(0.72 0.13 225 / 0.9), 0 0 60px oklch(0.72 0.13 225 / 0.5);
+  animation: orb-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 20px oklch(0.72 0.13 225 / 0.8), 0 0 50px oklch(0.72 0.13 225 / 0.4); }
+  50% { transform: scale(1.12); box-shadow: 0 0 32px oklch(0.8 0.12 300 / 0.9), 0 0 80px oklch(0.72 0.13 225 / 0.6); }
+}
+
+@utility sk-holo-text {
+  background: var(--gradient-holo);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: holo 8s ease infinite;
+}
+
+@utility sk-holo-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.5px;
+    border-radius: inherit;
+    background: var(--gradient-holo);
+    background-size: 200% 200%;
+    animation: holo 8s ease infinite;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility sk-holo-bg {
+  background: var(--gradient-holo);
+  background-size: 200% 200%;
+  animation: holo 8s ease infinite;
+}
+
+@keyframes holo {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Light pearl cards: retheme tokens locally so nested content stays readable */
+.pearl-scope {
+  --foreground: oklch(0.24 0.11 263);
+  --muted-foreground: oklch(0.42 0.08 258);
+  --secondary: oklch(0.24 0.11 263 / 0.08);
+  --secondary-foreground: oklch(0.24 0.11 263);
+  --input: oklch(0.24 0.11 263 / 0.14);
+  --border: oklch(0.24 0.11 263 / 0.1);
+  --background: oklch(1 0 0);
+  --primary: oklch(0.53 0.1 230);
+  --primary-foreground: oklch(0.975 0.008 50);
+  --ink: oklch(0.24 0.11 263);
+  color: oklch(0.24 0.11 263);
+}
+.pearl-scope input[type="datetime-local"] { color-scheme: light; }
+
+

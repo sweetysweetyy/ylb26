@@ -1,0 +1,1 @@
+- Ecoflux: src/ecoflux, URL /ecoflux/*, `eco_` tables via `eco()`, `.ecoflux-theme` with `eco-` utilities/tokens (also set on <body> for dialogs); AI via resolveAppAiModel("ecoflux").

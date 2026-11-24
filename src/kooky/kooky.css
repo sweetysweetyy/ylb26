@@ -1,0 +1,54 @@
+/* KOOKY — warm graphite + amber signal, scoped to .kooky-theme. */
+.kooky-theme {
+  --radius: 0.875rem;
+  --background: oklch(0.16 0.012 60);
+  --foreground: oklch(0.95 0.012 80);
+  --card: oklch(0.205 0.014 60);
+  --card-foreground: oklch(0.95 0.012 80);
+  --popover: oklch(0.22 0.014 60);
+  --popover-foreground: oklch(0.95 0.012 80);
+  --primary: oklch(0.82 0.16 75);
+  --primary-foreground: oklch(0.2 0.03 70);
+  --secondary: oklch(0.26 0.014 60);
+  --secondary-foreground: oklch(0.93 0.012 80);
+  --muted: oklch(0.24 0.012 60);
+  --muted-foreground: oklch(0.68 0.015 75);
+  --accent: oklch(0.3 0.03 70);
+  --accent-foreground: oklch(0.95 0.012 80);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0.01 25);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.82 0.16 75);
+  color-scheme: dark;
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  background-image:
+    radial-gradient(60rem 30rem at 85% -10%, oklch(0.82 0.16 75 / 10%), transparent 60%),
+    radial-gradient(40rem 25rem at -10% 100%, oklch(0.7 0.12 230 / 7%), transparent 60%);
+  background-attachment: fixed;
+}
+.kooky-theme * { border-color: var(--border); }
+.kooky-theme h1, .kooky-theme h2, .kooky-theme h3, .kooky-theme h4,
+.kooky-theme .font-display { font-family: "Sora", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.02em; }
+.kooky-theme .shadow-glow { box-shadow: 0 0 0 1px oklch(0.82 0.16 75 / 25%), 0 12px 40px -12px oklch(0.82 0.16 75 / 35%); }
+.kooky-theme .surface {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 1px 0 oklch(1 0 0 / 4%) inset, 0 20px 50px -30px oklch(0 0 0 / 60%);
+}
+.kooky-theme .prose-kooky h1, .kooky-theme .prose-kooky h2, .kooky-theme .prose-kooky h3 { color: var(--foreground); margin-top: 1.25em; margin-bottom: 0.4em; font-weight: 600; }
+.kooky-theme .prose-kooky h1 { font-size: 1.15rem; }
+.kooky-theme .prose-kooky h2 { font-size: 1.05rem; }
+.kooky-theme .prose-kooky h3 { font-size: 0.95rem; }
+.kooky-theme .prose-kooky p { margin: 0.5em 0; line-height: 1.6; }
+.kooky-theme .prose-kooky ul, .kooky-theme .prose-kooky ol { padding-left: 1.25em; margin: 0.5em 0; }
+.kooky-theme .prose-kooky li { margin: 0.25em 0; line-height: 1.55; }
+.kooky-theme .prose-kooky ul { list-style: disc; }
+.kooky-theme .prose-kooky ol { list-style: decimal; }
+.kooky-theme .prose-kooky strong { color: var(--foreground); font-weight: 600; }
+.kooky-theme .prose-kooky a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
+.kooky-theme .prose-kooky code { font-size: 0.85em; background: var(--muted); padding: 0.1em 0.35em; border-radius: 0.3em; }

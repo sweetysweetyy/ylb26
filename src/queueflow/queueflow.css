@@ -1,0 +1,34 @@
+/* Queue Flow (FilaPro) — scoped under .queueflow-theme so it never restyles other apps. */
+.queueflow-theme {
+  --radius: 0.875rem;
+  --background: oklch(0.985 0.006 95);
+  --foreground: oklch(0.23 0.03 240);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.23 0.03 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.23 0.03 240);
+  --primary: oklch(0.38 0.078 215);
+  --primary-foreground: oklch(0.985 0.006 95);
+  --secondary: oklch(0.95 0.012 220);
+  --secondary-foreground: oklch(0.32 0.05 220);
+  --muted: oklch(0.955 0.008 220);
+  --muted-foreground: oklch(0.52 0.025 235);
+  --accent: oklch(0.79 0.155 72);
+  --accent-foreground: oklch(0.24 0.05 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.012 225);
+  --input: oklch(0.9 0.012 225);
+  --ring: oklch(0.38 0.078 215);
+  --qf-font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --gradient-hero: linear-gradient(150deg, oklch(0.28 0.055 225) 0%, oklch(0.38 0.078 215) 55%, oklch(0.45 0.09 200) 100%);
+  --shadow-soft: 0 1px 2px oklch(0.28 0.055 225 / 0.06), 0 8px 28px oklch(0.28 0.055 225 / 0.08);
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+.queueflow-theme * { border-color: var(--border); }
+.queueflow-theme h1, .queueflow-theme h2, .queueflow-theme h3, .queueflow-theme .font-display {
+  font-family: var(--qf-font-display);
+  letter-spacing: -0.02em;
+}
+.queueflow-theme .bg-hero { background-image: var(--gradient-hero); }

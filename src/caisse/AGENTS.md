@@ -1,0 +1,1 @@
+- Caisse Vocale: src/caisse, /caisse/*, `cv_` tables via `cv()`, `.caisse-theme`; Odoo creds from shared `odoo_connections`, AI via resolveAppAiModel("caisse").

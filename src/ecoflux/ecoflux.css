@@ -1,0 +1,111 @@
+/* Ecoflux — all styles scoped under .ecoflux-theme (eco- prefixed utilities/tokens). */
+@theme inline {
+  --color-eco-cyan: var(--eco-cyan);
+  --color-eco-violet: var(--eco-violet);
+  --color-eco-amber: var(--eco-amber);
+  --color-eco-magenta: var(--eco-magenta);
+  --color-eco-emerald: var(--eco-emerald);
+  --color-eco-carmine: var(--eco-carmine);
+  --color-eco-glass: var(--eco-glass);
+  --color-eco-obsidian: var(--eco-obsidian);
+}
+
+.ecoflux-theme {
+  --radius: 0.875rem;
+  --eco-obsidian: oklch(0.155 0.012 270);
+  --background: oklch(0.155 0.012 270);
+  --foreground: oklch(0.94 0.01 270);
+  --card: oklch(0.205 0.022 272);
+  --card-foreground: oklch(0.94 0.01 270);
+  --popover: oklch(0.205 0.022 272);
+  --popover-foreground: oklch(0.94 0.01 270);
+  --primary: oklch(0.94 0.01 270);
+  --primary-foreground: oklch(0.155 0.012 270);
+  --secondary: oklch(1 0 0 / 7%);
+  --secondary-foreground: oklch(0.94 0.01 270);
+  --muted: oklch(1 0 0 / 5%);
+  --muted-foreground: oklch(0.65 0.03 270);
+  --accent: oklch(1 0 0 / 9%);
+  --accent-foreground: oklch(0.94 0.01 270);
+  --destructive: oklch(0.62 0.22 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.68 0.19 295);
+  --eco-glass: oklch(1 0 0 / 4%);
+  --eco-cyan: oklch(0.84 0.13 200);
+  --eco-violet: oklch(0.68 0.19 295);
+  --eco-amber: oklch(0.82 0.15 72);
+  --eco-magenta: oklch(0.71 0.22 345);
+  --eco-emerald: oklch(0.78 0.16 160);
+  --eco-carmine: oklch(0.62 0.22 20);
+  --eco-holo: conic-gradient(from 120deg, var(--eco-magenta), var(--eco-violet), var(--eco-cyan), var(--eco-amber), var(--eco-magenta));
+  --eco-aig: linear-gradient(100deg, var(--eco-magenta), var(--eco-violet) 45%, var(--eco-cyan));
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", -apple-system, sans-serif;
+  letter-spacing: 0;
+}
+.ecoflux-theme * { border-color: var(--border); }
+
+@utility eco-glass { background: var(--eco-glass); border: 1px solid var(--border); backdrop-filter: blur(14px); }
+@utility eco-holo { background: linear-gradient(var(--eco-obsidian), var(--eco-obsidian)) padding-box, var(--eco-holo) border-box; border: 1px solid transparent; }
+@utility eco-holo-card { background: linear-gradient(var(--card), var(--card)) padding-box, var(--eco-holo) border-box; border: 1px solid transparent; }
+@utility eco-aig { background: var(--eco-aig); }
+@utility eco-aig-text { background: linear-gradient(100deg, var(--eco-cyan), oklch(0.9 0.08 200)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@utility eco-dots { background-image: radial-gradient(oklch(0.7 0.1 275 / 0.18) 1px, transparent 1px); }
+@utility eco-glow-violet { box-shadow: 0 0 24px oklch(0.68 0.19 295 / 0.45); }
+@utility eco-glow-magenta { box-shadow: 0 0 28px oklch(0.71 0.22 345 / 0.35); }
+
+@keyframes eco-flow { to { stroke-dashoffset: -24; } }
+@keyframes eco-pulse-ring { 0%,100% { opacity: .55 } 50% { opacity: 1 } }
+.ecoflux-theme .flow-dash { stroke-dasharray: 6 6; animation: eco-flow 1.2s linear infinite; }
+.ecoflux-theme .pulse-ring { animation: eco-pulse-ring 1.6s ease-in-out infinite; }
+.ecoflux-theme .section-label { font-size: 10px; color: var(--muted-foreground); }
+.ecoflux-theme .cockpit-shell { height: 100dvh; min-height: 560px; padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; }
+.ecoflux-theme .workspace-topbar { min-height: 56px; border-radius: 18px; padding: 8px 16px; display: flex; align-items: center; gap: 16px; }
+.ecoflux-theme .brand { font-size: 12px; }
+.ecoflux-theme .workspace-grid { display: grid; grid-template-columns: 46px minmax(0,1fr) 38px; gap: 12px; flex: 1; min-height: 0; }
+.ecoflux-theme .workspace-grid.right-open { grid-template-columns: 46px minmax(0,1fr) 300px; }
+.ecoflux-theme .workspace-grid.left-open { grid-template-columns: 290px minmax(0,1fr) 38px; }
+.ecoflux-theme .workspace-grid.left-open.right-open { grid-template-columns: 290px minmax(0,1fr) 300px; }
+.ecoflux-theme .clarification-rail { border-radius: 18px; display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+.ecoflux-theme .clarification-rail span { writing-mode: vertical-rl; transform: rotate(180deg); margin-top: 12px; font-size: 11px; color: var(--muted-foreground); }
+.ecoflux-theme .clarification-panel { border-radius: 8px; }
+.ecoflux-theme .atelier-select { border: 1px solid var(--border); background: var(--card); border-radius: 24px; padding: 10px 16px; font-size: 12px; color: var(--foreground); }
+.ecoflux-theme select option { background: var(--card); color: var(--foreground); }
+@media (max-width: 1100px) {
+  .ecoflux-theme .workspace-grid.right-open { grid-template-columns: 42px minmax(0,1fr) 270px; }
+  .ecoflux-theme .workspace-grid.left-open.right-open { grid-template-columns: 240px minmax(0,1fr) 270px; }
+  .ecoflux-theme .impact-box { padding: 16px; }
+  .ecoflux-theme .impact-box > p:nth-child(2) { font-size: 25px; }
+}
+@media (max-width: 850px) {
+  .ecoflux-theme .cockpit-shell { padding: 10px; }
+  .ecoflux-theme .workspace-topbar { flex-wrap: wrap; gap: 8px; }
+  .ecoflux-theme .workspace-title { flex-basis: calc(100% - 115px); }
+  .ecoflux-theme .workspace-grid.right-open { grid-template-columns: 38px minmax(0,1fr) 240px; }
+  .ecoflux-theme .workspace-grid.left-open.right-open { grid-template-columns: 220px minmax(0,1fr); }
+  .ecoflux-theme .workspace-grid.left-open.right-open > .solution-panel { position: absolute; right: 10px; top: 235px; bottom: 12px; width: 260px; background: var(--background); z-index: 30; padding: 12px; border: 1px solid var(--border); border-radius: 8px; }
+  .ecoflux-theme .trace-card { width: 310px; }
+}
+@media (max-width: 600px) {
+  .ecoflux-theme .cockpit-shell { min-height: 780px; height: auto; }
+  .ecoflux-theme .workspace-topbar { padding: 10px; }
+  .ecoflux-theme .workspace-topbar .brand { width: 100%; }
+  .ecoflux-theme .workspace-title { flex-basis: 100%; border-left: 0; padding-left: 0; }
+  .ecoflux-theme .workspace-grid, .ecoflux-theme .workspace-grid.right-open, .ecoflux-theme .workspace-grid.left-open, .ecoflux-theme .workspace-grid.left-open.right-open { grid-template-columns: 32px minmax(0,1fr); flex: none; }
+  .ecoflux-theme .canvas-section { height: 500px; }
+  .ecoflux-theme .workspace-grid > .solution-panel { grid-column: 1 / -1; }
+  .ecoflux-theme .workspace-grid > .clarification-panel { grid-column: 1 / -1; max-height: 450px; }
+  .ecoflux-theme .workspace-grid.left-open > .canvas-section { grid-column: 1 / -1; }
+  .ecoflux-theme .workspace-grid.left-open.right-open > .solution-panel { position: static; width: auto; border: 0; padding: 0; }
+  .ecoflux-theme .solution-rail { grid-column: 1 / -1; }
+  .ecoflux-theme .atelier-select { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ecoflux-theme .flow-dash, .ecoflux-theme .pulse-ring { animation: none; }
+  .ecoflux-theme svg animateMotion { display: none; }
+}
+.ecoflux-theme .cockpit-shell.zen { padding: 0; gap: 0; }
+.ecoflux-theme .cockpit-shell.zen .workspace-grid { grid-template-columns: minmax(0,1fr) !important; gap: 0; }

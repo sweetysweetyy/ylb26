@@ -1,0 +1,81 @@
+/* SkyComptable — styles encapsulés sous .skycomptable-theme */
+.skycomptable-theme {
+--radius: 1rem;
+  --background: oklch(0.14 0.025 275);
+  --foreground: oklch(0.96 0.01 270);
+  --card: oklch(0.2 0.03 275 / 55%);
+  --card-foreground: oklch(0.96 0.01 270);
+  --popover: oklch(0.19 0.03 275);
+  --popover-foreground: oklch(0.96 0.01 270);
+  --primary: oklch(0.72 0.17 290);
+  --primary-foreground: oklch(0.14 0.025 275);
+  --secondary: oklch(0.26 0.03 275 / 70%);
+  --secondary-foreground: oklch(0.94 0.01 270);
+  --muted: oklch(0.24 0.03 275 / 60%);
+  --muted-foreground: oklch(0.7 0.03 270);
+  --accent: oklch(0.3 0.06 285 / 60%);
+  --accent-foreground: oklch(0.97 0.01 270);
+  --destructive: oklch(0.65 0.21 20);
+  --destructive-foreground: oklch(0.98 0.01 270);
+  --success: oklch(0.78 0.16 160);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.72 0.17 290);
+  --chart-1: oklch(0.72 0.17 290);
+  --chart-2: oklch(0.8 0.14 200);
+  --chart-3: oklch(0.78 0.16 350);
+  --chart-4: oklch(0.82 0.14 80);
+  --chart-5: oklch(0.78 0.16 160);
+  --sidebar: oklch(0.17 0.03 275 / 60%);
+  --sidebar-foreground: oklch(0.92 0.01 270);
+  --sidebar-primary: oklch(0.85 0.12 220);
+  --sidebar-primary-foreground: oklch(0.14 0.025 275);
+  --sidebar-accent: oklch(1 0 0 / 8%);
+  --sidebar-accent-foreground: oklch(0.98 0.01 270);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.72 0.17 290);
+  --glass: oklch(0.22 0.03 275 / 45%);
+  --glass-border: oklch(1 0 0 / 12%);
+  --holo-1: oklch(0.75 0.18 300);
+  --holo-2: oklch(0.8 0.14 210);
+  --holo-3: oklch(0.8 0.16 350);
+  --gradient-holo: linear-gradient(120deg, var(--holo-1), var(--holo-2), var(--holo-3), var(--holo-1));
+  --shadow-glow: 0 0 0 1px var(--glass-border), 0 10px 40px -12px color-mix(in oklab, var(--holo-1) 45%, transparent);
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-serif: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(60rem 40rem at 10% -10%, color-mix(in oklab, var(--holo-1) 22%, transparent), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 10%, color-mix(in oklab, var(--holo-2) 16%, transparent), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, color-mix(in oklab, var(--holo-3) 14%, transparent), transparent 60%);
+  background-attachment: fixed;
+}
+.skycomptable-theme * { border-color: var(--border); }
+.skycomptable-theme h1, .skycomptable-theme h2, .skycomptable-theme h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+.skycomptable-theme .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.skycomptable-theme .bg-card { backdrop-filter: blur(20px) saturate(160%); }
+
+@utility skc-glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(160%);
+}
+@utility skc-holo-text {
+  background: var(--gradient-holo);
+  background-size: 300% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: skc-holo-shift 8s linear infinite;
+}
+@utility skc-holo-bg {
+  background: var(--gradient-holo);
+  background-size: 300% 100%;
+  animation: skc-holo-shift 8s linear infinite;
+}
+@utility skc-glow { box-shadow: var(--shadow-glow); }
+@keyframes skc-holo-shift { to { background-position: 300% 0; } }

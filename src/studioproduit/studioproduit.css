@@ -1,0 +1,131 @@
+/* Studio Produit — every rule scoped under .studioproduit-theme; utilities prefixed sp-. */
+.studioproduit-theme {
+  --radius: 0.9rem;
+  --background: oklch(0.16 0.012 60);
+  --foreground: oklch(0.96 0.008 80);
+  --card: oklch(0.21 0.014 62);
+  --card-foreground: oklch(0.96 0.008 80);
+  --popover: oklch(0.21 0.014 62);
+  --popover-foreground: oklch(0.96 0.008 80);
+  --primary: oklch(0.78 0.14 68);
+  --primary-foreground: oklch(0.18 0.02 60);
+  --secondary: oklch(0.26 0.015 62);
+  --secondary-foreground: oklch(0.96 0.008 80);
+  --muted: oklch(0.25 0.012 62);
+  --muted-foreground: oklch(0.72 0.018 75);
+  --accent: oklch(0.3 0.03 60);
+  --accent-foreground: oklch(0.96 0.008 80);
+  --destructive: oklch(0.62 0.19 25);
+  --destructive-foreground: oklch(0.98 0.005 80);
+  --border: oklch(0.3 0.014 62);
+  --input: oklch(0.3 0.014 62);
+  --ring: oklch(0.78 0.14 68);
+  --surface-grain: radial-gradient(
+    120% 80% at 50% -10%,
+    oklch(0.28 0.05 62 / 0.9),
+    transparent 60%
+  );
+  --gradient-hero: linear-gradient(135deg, oklch(0.82 0.15 70), oklch(0.68 0.12 40));
+  --shadow-lift: 0 24px 60px -24px oklch(0 0 0 / 0.7);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  background-color: var(--background);
+  background-image: var(--surface-grain);
+  background-repeat: no-repeat;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+.studioproduit-theme * { border-color: var(--border); }
+.studioproduit-theme h1, .studioproduit-theme h2, .studioproduit-theme h3, .studioproduit-theme .font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+@utility sp-text-gradient {
+  background-image: var(--gradient-hero);
+  background-clip: text;
+  color: transparent;
+}
+
+@utility sp-card-lift {
+  box-shadow: var(--shadow-lift);
+}
+
+@utility sp-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.925rem;
+  font-weight: 600;
+  background-image: var(--gradient-hero);
+  color: var(--color-primary-foreground);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+@utility sp-btn-primary-hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+@utility sp-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  padding: 0.7rem 1.4rem;
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: var(--color-foreground);
+  background-color: transparent;
+  transition: background-color 0.15s ease;
+}
+
+@utility sp-field {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-input);
+  background-color: var(--color-secondary);
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  color: var(--color-foreground);
+  outline: none;
+}
+@utility sp-field-focus {
+  border-color: var(--color-ring);
+}

@@ -1,0 +1,40 @@
+/* Chytect (Interior AI Studio) — scoped under .chytect-theme */
+.chytect-theme {
+  --radius: 0.75rem;
+  --background: oklch(0.16 0.028 232);
+  --foreground: oklch(0.95 0.01 220);
+  --card: oklch(0.21 0.032 228 / 0.78);
+  --popover: oklch(0.21 0.032 228);
+  --popover-foreground: oklch(0.95 0.01 220);
+  --primary: oklch(0.8 0.13 200);
+  --primary-foreground: oklch(0.16 0.028 232);
+  --muted-foreground: oklch(0.7 0.03 220);
+  --success: oklch(0.8 0.17 150);
+  --border: oklch(0.6 0.08 210 / 0.22);
+  --input: oklch(0.6 0.08 210 / 0.28);
+  --ring: oklch(0.8 0.13 200);
+  --chyt-gradient-ai: linear-gradient(90deg, oklch(0.6 0.19 262), oklch(0.62 0.2 298));
+  --chyt-shadow-panel: 0 10px 40px -12px oklch(0 0 0 / 0.6), inset 0 1px 0 oklch(1 0 0 / 0.04);
+  --chyt-shadow-glow: 0 0 0 1px oklch(0.8 0.13 200 / 0.5), 0 0 18px oklch(0.8 0.13 200 / 0.25);
+  color: var(--foreground);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+}
+.chytect-theme.chytect-bg { background: radial-gradient(1200px 600px at 50% -10%, oklch(0.26 0.05 215), transparent 60%), var(--background); }
+.chytect-theme h1, .chytect-theme h2 { font-family: "Sora", ui-sans-serif, system-ui, sans-serif; }
+.chytect-theme .chyt-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--chyt-shadow-panel); backdrop-filter: blur(14px); }
+.chytect-theme .chyt-panel-title { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.chytect-theme .chyt-chip { background: oklch(0.24 0.04 225 / 0.8); border: 1px solid var(--border); border-radius: calc(var(--radius) + 2px); }
+.chytect-theme .chyt-field { width: 100%; background: oklch(0.18 0.03 230 / 0.8); border: 1px solid var(--input); border-radius: calc(var(--radius) - 2px); padding: 0.7rem 0.8rem; font-size: 0.82rem; color: var(--foreground); resize: none; outline: none; }
+.chytect-theme .chyt-field:focus { border-color: var(--ring); box-shadow: var(--chyt-shadow-glow); }
+.chytect-theme .chyt-btn-ai { background: var(--chyt-gradient-ai); color: var(--foreground); font-weight: 600; font-size: 0.8rem; border-radius: calc(var(--radius) - 2px); padding: 0.55rem 1.1rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: filter .2s, transform .2s; }
+.chytect-theme .chyt-btn-ai:hover:not(:disabled) { filter: brightness(1.15); transform: translateY(-1px); }
+.chytect-theme .chyt-btn-ai:disabled { opacity: 0.5; cursor: not-allowed; }
+.chytect-theme .chyt-btn-ghost { border: 1px solid var(--border); border-radius: calc(var(--radius) - 2px); color: var(--primary); font-size: 0.8rem; font-weight: 600; padding: 0.55rem 1rem; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; }
+.chytect-theme .chyt-btn-ghost:hover:not(:disabled) { background: oklch(0.8 0.13 200 / 0.08); }
+.chytect-theme .chyt-tool-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; border-radius: calc(var(--radius) - 2px); color: var(--muted-foreground); font-size: 0.68rem; transition: background .2s, color .2s; }
+.chytect-theme .chyt-tool-btn:hover { color: var(--foreground); background: oklch(0.8 0.13 200 / 0.07); }
+.chytect-theme .chyt-tool-btn[data-active="true"] { color: var(--foreground); background: oklch(0.55 0.15 245 / 0.35); box-shadow: var(--chyt-shadow-glow); }
+.chytect-theme .chyt-icon-btn { width: 2.25rem; height: 2.25rem; display: grid; place-items: center; border-radius: calc(var(--radius) - 2px); border: 1px solid var(--border); background: oklch(0.2 0.03 230 / 0.8); color: var(--foreground); }
+.chytect-theme .chyt-icon-btn:hover:not(:disabled) { border-color: var(--ring); }
+.chytect-theme .chyt-icon-btn:disabled { opacity: .4; }
+.chytect-theme .chyt-scene-viewport { background: radial-gradient(ellipse at 50% 30%, oklch(0.3 0.03 220), oklch(0.13 0.02 235)); }

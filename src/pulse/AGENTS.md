@@ -1,0 +1,1 @@
+- Pulse: src/pulse, URL /pulse/*, `pls_` tables via `pls()`, `.pulse-theme` with `pls-` utilities/tokens; Odoo creds read/written in the shared `odoo_connections` row (Laboratory settings), AI via resolveAppAiModel("pulse").

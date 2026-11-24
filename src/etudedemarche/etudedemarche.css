@@ -1,0 +1,86 @@
+/* Étude de marché — scoped under .edm-theme so it never restyles other apps. */
+.edm-theme {
+  --radius: 1rem;
+  /* Cockpit premium — fond #222D52 */
+  --background: oklch(0.27 0.055 271);
+  --foreground: oklch(0.99 0.002 250);
+  --card: oklch(0.31 0.052 271 / 55%);
+  --card-foreground: oklch(0.99 0.002 250);
+  --popover: oklch(0.25 0.05 271);
+  --popover-foreground: oklch(0.99 0.002 250);
+  --primary: oklch(0.9 0.06 60);
+  --primary-foreground: oklch(0.24 0.06 275);
+  --secondary: oklch(0.36 0.05 271);
+  --secondary-foreground: oklch(0.98 0.002 250);
+  --muted: oklch(0.34 0.045 271);
+  --muted-foreground: oklch(0.78 0.02 265);
+  --accent: oklch(0.4 0.06 271);
+  --accent-foreground: oklch(0.99 0.002 250);
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.99 0.002 250);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.85 0.08 60);
+
+  /* Palette holographique */
+  --holo-1: oklch(0.92 0.055 62);      /* #FFE0C9 */
+  --holo-2: oklch(0.29 0.19 285);      /* #200778 */
+  --holo-3: oklch(0.95 0.006 240);     /* #EDF2F4 */
+  --holo-4: oklch(0.93 0.03 12);       /* #FFEBF0 */
+  --emerald-deep: oklch(0.33 0.06 158);/* #1C4033 */
+  --gradient-holo: linear-gradient(120deg, var(--holo-1), var(--holo-4) 35%, var(--holo-3) 60%, var(--holo-2));
+  --gradient-bento: linear-gradient(150deg, oklch(1 0 0 / 10%), oklch(1 0 0 / 3%));
+  --gradient-halo: radial-gradient(60% 60% at 50% 0%, oklch(0.75 0.16 300 / 35%), transparent 70%);
+  --shadow-halo: 0 24px 70px -30px oklch(0.75 0.16 300 / 60%);
+  --shadow-bento: 0 18px 50px -28px oklch(0.1 0.05 275 / 90%);
+
+  --chart-1: oklch(0.9 0.06 60);
+  --chart-2: oklch(0.72 0.13 190);
+  --chart-3: oklch(0.66 0.17 300);
+  --chart-4: oklch(0.85 0.09 20);
+  --chart-5: oklch(0.7 0.12 158);
+  --sidebar: oklch(0.24 0.05 271 / 80%);
+  --sidebar-foreground: oklch(0.98 0.002 250);
+  --sidebar-primary: oklch(0.9 0.06 60);
+  --sidebar-primary-foreground: oklch(0.24 0.06 275);
+  --sidebar-accent: oklch(0.34 0.05 271);
+  --sidebar-accent-foreground: oklch(0.99 0.002 250);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.85 0.08 60);
+
+  background-color: var(--background);
+  background-image:
+    radial-gradient(80% 50% at 12% -10%, oklch(0.55 0.16 300 / 30%), transparent 60%),
+    radial-gradient(60% 40% at 100% 0%, oklch(0.85 0.08 60 / 18%), transparent 60%),
+    radial-gradient(60% 50% at 50% 110%, oklch(0.4 0.09 158 / 25%), transparent 60%);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+.edm-theme h1, .edm-theme h2, .edm-theme h3, .edm-theme h4, .edm-theme .font-display { font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif; letter-spacing: -0.02em; }
+.edm-theme .glass {
+  background: var(--gradient-bento);
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-bento);
+}
+
+.edm-theme .text-holo {
+  background: var(--gradient-holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.edm-theme .halo { position: relative; }
+.edm-theme .halo::before {
+    content: "";
+    position: absolute;
+    inset: -40% -10% auto -10%;
+    height: 220px;
+    background: var(--gradient-halo);
+    pointer-events: none;
+    filter: blur(10px);
+}
+

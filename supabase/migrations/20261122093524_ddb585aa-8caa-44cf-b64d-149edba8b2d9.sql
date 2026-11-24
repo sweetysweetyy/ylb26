@@ -1,0 +1,1 @@
+ALTER TABLE public.eco_processes ADD COLUMN IF NOT EXISTS lab_ecosystem jsonb;

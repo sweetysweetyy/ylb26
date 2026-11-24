@@ -1,0 +1,166 @@
+/* ===== CALENDSKY (scoped) ===== */
+.calendsky {
+  --radius: 1.25rem;
+  /* Palette: #001952 #043775 #12769E #FCF6F3 */
+  --navy: oklch(0.22 0.1 262);
+  --royal: oklch(0.33 0.12 256);
+  --lagoon: oklch(0.53 0.1 230);
+  --pearl: oklch(0.977 0.008 50);
+  --cream: var(--pearl);
+  --sage: var(--lagoon);
+  --ink: var(--royal);
+  --night: var(--navy);
+
+  --background: var(--pearl);
+  --foreground: var(--navy);
+  --card: oklch(1 0 0 / 0.62);
+  --card-foreground: var(--navy);
+  --popover: oklch(0.985 0.006 50 / 0.94);
+  --popover-foreground: var(--navy);
+  --primary: var(--royal);
+  --primary-foreground: var(--pearl);
+  --secondary: oklch(0.93 0.03 230);
+  --secondary-foreground: var(--royal);
+  --muted: oklch(0.95 0.012 240);
+  --muted-foreground: oklch(0.5 0.04 255);
+  --accent: var(--lagoon);
+  --accent-foreground: var(--pearl);
+  --destructive: oklch(0.6 0.2 22);
+  --destructive-foreground: var(--pearl);
+  --warning: oklch(0.8 0.14 85);
+  --border: oklch(0.22 0.1 262 / 0.09);
+  --input: oklch(0.22 0.1 262 / 0.14);
+  --ring: var(--lagoon);
+
+  /* événements pastel */
+  --ev-travail: oklch(0.6 0.15 255);
+  --ev-client: oklch(0.68 0.15 50);
+  --ev-perso: oklch(0.62 0.18 340);
+  --ev-focus: oklch(0.55 0.18 295);
+  --ev-mint: oklch(0.62 0.13 165);
+  --postit: oklch(0.95 0.08 95);
+
+  --gradient-page:
+    radial-gradient(55% 45% at 0% 100%, oklch(0.53 0.1 230 / 0.18), transparent 70%),
+    radial-gradient(45% 40% at 100% 0%, oklch(0.85 0.08 300 / 0.25), transparent 70%),
+    radial-gradient(40% 40% at 60% 40%, oklch(0.9 0.05 220 / 0.3), transparent 70%),
+    var(--pearl);
+  --gradient-holo: linear-gradient(120deg, oklch(0.75 0.13 230), oklch(0.72 0.15 290), oklch(0.82 0.12 340), oklch(0.85 0.1 200), oklch(0.75 0.13 230));
+  --gradient-dark: linear-gradient(150deg, var(--royal) 0%, var(--navy) 70%);
+  --gradient-side: linear-gradient(180deg, var(--navy) 0%, var(--royal) 60%, oklch(0.4 0.1 225) 100%);
+  --shadow-glass: 0 1px 0 oklch(1 0 0 / 0.8) inset, 0 24px 50px -24px oklch(0.22 0.1 262 / 0.3);
+
+  background: var(--gradient-page);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+.calendsky h1, .calendsky h2, .calendsky h3 { font-family: var(--font-display); letter-spacing: -0.02em; }
+
+/* Overrides for utilities shared with SKY CLOUD */
+.calendsky .sk-glass {
+  background: var(--card);
+  backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid oklch(1 0 0 / 0.6);
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-2xl);
+}
+.calendsky .nav-active {
+  background: linear-gradient(90deg, oklch(0.6 0.15 250 / 0.9), oklch(0.53 0.1 230 / 0.6));
+  box-shadow: 0 0 0 1px oklch(0.8 0.1 230 / 0.5) inset, 0 8px 24px -8px oklch(0.6 0.15 250 / 0.8);
+}
+.calendsky .sk-holo-text { background-size: 300% 300%; }
+
+
+@utility bento-dark {
+  background: var(--gradient-dark);
+  color: var(--cream);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-glass);
+}
+
+@utility holo {
+  background: var(--gradient-holo);
+  background-size: 300% 300%;
+  animation: holo 8s ease infinite;
+}
+
+
+
+@utility holo-ring {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: var(--gradient-holo);
+    background-size: 300% 300%;
+    animation: holo 6s ease infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+
+
+@utility field {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--input);
+  background: oklch(1 0 0 / 0.7);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.95rem;
+  outline: none;
+  &:focus { border-color: var(--ring); box-shadow: 0 0 0 3px oklch(0.66 0.05 128 / 0.25); }
+}
+
+@utility btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 999px;
+  background: var(--gradient-dark);
+  color: var(--cream);
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  transition: transform .15s ease, opacity .15s;
+  &:hover { transform: translateY(-1px); }
+  &:disabled { opacity: .5; }
+}
+
+@utility btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  border-radius: 999px;
+  background: oklch(1 0 0 / 0.6);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem; font-weight: 600;
+}
+
+
+@utility sidebar-glass {
+  background: var(--gradient-side);
+  color: var(--pearl);
+}
+
+
+
+@utility ev {
+  border-left: 3px solid var(--ev, var(--ev-travail));
+  background: color-mix(in oklab, var(--ev, var(--ev-travail)) 13%, white);
+  color: color-mix(in oklab, var(--ev, var(--ev-travail)) 75%, var(--navy));
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 18px -10px color-mix(in oklab, var(--ev, var(--ev-travail)) 70%, transparent);
+}
+
+@utility postit {
+  background: linear-gradient(160deg, var(--postit), color-mix(in oklab, var(--postit) 80%, var(--warning)));
+  color: var(--navy);
+  border-radius: 0.9rem;
+  box-shadow: 0 12px 24px -14px oklch(0.4 0.1 80 / 0.7);
+}
+
+

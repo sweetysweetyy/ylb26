@@ -1,0 +1,37 @@
+/* AtelierImmo — scoped under .immo-theme so it never restyles other apps. */
+.immo-theme {
+  --radius: 0.875rem;
+  --background: oklch(0.16 0.025 220);
+  --foreground: oklch(0.96 0.008 220);
+  --card: oklch(0.21 0.028 222);
+  --card-foreground: oklch(0.96 0.008 220);
+  --popover: oklch(0.19 0.028 222);
+  --popover-foreground: oklch(0.96 0.008 220);
+  --primary: oklch(0.78 0.14 175);
+  --primary-foreground: oklch(0.17 0.03 200);
+  --secondary: oklch(0.27 0.03 222);
+  --secondary-foreground: oklch(0.94 0.01 220);
+  --muted: oklch(0.25 0.025 222);
+  --muted-foreground: oklch(0.72 0.02 220);
+  --accent: oklch(0.82 0.13 78);
+  --accent-foreground: oklch(0.2 0.03 60);
+  --destructive: oklch(0.62 0.2 22);
+  --destructive-foreground: oklch(0.98 0.005 220);
+  --border: oklch(0.32 0.03 222);
+  --input: oklch(0.3 0.03 222);
+  --ring: oklch(0.78 0.14 175);
+  --immo-gradient-hero: radial-gradient(120% 80% at 50% -10%, oklch(0.78 0.14 175 / 0.22), transparent 60%), linear-gradient(180deg, oklch(0.19 0.03 222), oklch(0.16 0.025 220));
+  --immo-gradient-brand: linear-gradient(100deg, oklch(0.78 0.14 175), oklch(0.82 0.13 78));
+  --immo-shadow-glow: 0 0 0 1px oklch(0.78 0.14 175 / 0.18), 0 24px 60px -28px oklch(0.78 0.14 175 / 0.5);
+  --immo-shadow-panel: 0 18px 50px -30px oklch(0.05 0 0 / 0.9);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.immo-theme * { border-color: var(--border); }
+.immo-theme h1, .immo-theme h2, .immo-theme h3 { letter-spacing: -0.025em; }
+.immo-theme .immo-panel { background-color: var(--card); border: 1px solid var(--border); border-radius: calc(var(--radius) + 4px); box-shadow: var(--immo-shadow-panel); }
+.immo-theme .immo-hero { background: var(--immo-gradient-hero); }
+.immo-theme .immo-brand { background: var(--immo-gradient-brand); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.immo-theme .immo-glow { box-shadow: var(--immo-shadow-glow); }

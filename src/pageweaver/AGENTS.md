@@ -1,0 +1,2 @@
+- Page Weaver: src/pageweaver, URL /pageweaver/*, `pw_` tables via `pw()`, `.pageweaver-theme` with `pw-` utilities/tokens; AI via resolveAppAiModel("pageweaver").
+- Page Weaver publishes to Odoo as the homepage via its own src/pageweaver/lib/odoo.server.ts (no cross-app imports), using the shared odoo_connections row.

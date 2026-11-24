@@ -1,0 +1,1 @@
+- FacturOdoo: src/facturodoo, URL /facturodoo/*, `fo_invoices` via `fo()`, `facturodoo-invoices` bucket, `.facturodoo-theme` with `fo-` utilities/tokens; Odoo creds from shared `odoo_connections`, AI via resolveAppAiModel("facturodoo").

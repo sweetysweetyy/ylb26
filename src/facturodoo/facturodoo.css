@@ -1,0 +1,111 @@
+/* FacturOdoo — scoped under .facturodoo-theme so it never restyles other apps. */
+@theme inline {
+  --font-fo-display: "Sora", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --color-fo-copper: var(--fo-copper);
+  --color-fo-copper-foreground: var(--fo-copper-foreground);
+  --color-fo-success: var(--fo-success);
+  --color-fo-success-foreground: var(--fo-success-foreground);
+  --color-fo-warning: var(--fo-warning);
+  --color-fo-warning-foreground: var(--fo-warning-foreground);
+  --animate-fo-fade-up: fo-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fo-scan: fo-scan 1.8s ease-in-out infinite;
+  @keyframes fo-fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+.facturodoo-theme {
+  --radius: 0.875rem;
+  --background: oklch(0.985 0.006 85);
+  --foreground: oklch(0.22 0.04 262);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.04 262);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 262);
+  --primary: oklch(0.32 0.07 262);
+  --primary-foreground: oklch(0.98 0.005 85);
+  --secondary: oklch(0.955 0.01 85);
+  --secondary-foreground: oklch(0.3 0.05 262);
+  --muted: oklch(0.955 0.008 85);
+  --muted-foreground: oklch(0.52 0.03 262);
+  --accent: oklch(0.93 0.03 60);
+  --accent-foreground: oklch(0.35 0.08 45);
+  --fo-copper: oklch(0.66 0.14 45);
+  --fo-copper-foreground: oklch(0.99 0.005 85);
+  --fo-success: oklch(0.6 0.13 155);
+  --fo-success-foreground: oklch(0.99 0.005 85);
+  --fo-warning: oklch(0.78 0.15 80);
+  --fo-warning-foreground: oklch(0.3 0.06 60);
+  --destructive: oklch(0.58 0.2 27);
+  --destructive-foreground: oklch(0.99 0.005 85);
+  --border: oklch(0.9 0.012 85);
+  --input: oklch(0.88 0.012 85);
+  --ring: oklch(0.66 0.14 45);
+  --chart-1: oklch(0.32 0.07 262);
+  --chart-2: oklch(0.66 0.14 45);
+  --chart-3: oklch(0.6 0.13 155);
+  --chart-4: oklch(0.78 0.15 80);
+  --chart-5: oklch(0.58 0.2 27);
+  --sidebar: oklch(0.26 0.05 262);
+  --sidebar-foreground: oklch(0.93 0.01 85);
+  --sidebar-primary: oklch(0.66 0.14 45);
+  --sidebar-primary-foreground: oklch(0.99 0.005 85);
+  --sidebar-accent: oklch(0.32 0.06 262);
+  --sidebar-accent-foreground: oklch(0.98 0.005 85);
+  --sidebar-border: oklch(0.36 0.05 262);
+  --sidebar-ring: oklch(0.66 0.14 45);
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  background-image:
+    radial-gradient(60rem 30rem at 110% -10%, oklch(0.93 0.03 60 / 55%), transparent 60%),
+    radial-gradient(40rem 24rem at -10% 110%, oklch(0.9 0.03 262 / 45%), transparent 60%);
+}
+.facturodoo-theme h1, .facturodoo-theme h2, .facturodoo-theme h3, .facturodoo-theme h4 {
+  font-family: "Sora", "Manrope", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+@utility fo-surface {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow: 0 1px 2px oklch(0.25 0.04 260 / 6%), 0 8px 24px -12px oklch(0.25 0.04 260 / 18%);
+}
+
+@utility fo-surface-lift {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow: 0 2px 4px oklch(0.25 0.04 260 / 8%), 0 20px 40px -20px oklch(0.25 0.04 260 / 30%);
+}
+
+@utility fo-text-gradient-copper {
+  background: linear-gradient(120deg, var(--fo-copper), oklch(0.5 0.12 40));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility fo-btn-copper {
+  background-color: var(--fo-copper);
+  color: var(--fo-copper-foreground);
+  box-shadow: 0 8px 20px -10px var(--fo-copper);
+  &:hover { filter: brightness(1.06); }
+}
+
+@utility fo-dropzone {
+  border: 1.5px dashed var(--input);
+  border-radius: calc(var(--radius) + 8px);
+  background-color: color-mix(in oklch, var(--card) 80%, transparent);
+  transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+  &:hover, &[data-active="true"] {
+    border-color: var(--fo-copper);
+    background-color: color-mix(in oklch, var(--accent) 60%, var(--card));
+  }
+}
+
+@utility fo-tabular {
+  font-variant-numeric: tabular-nums;
+}

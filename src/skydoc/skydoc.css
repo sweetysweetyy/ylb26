@@ -1,0 +1,174 @@
+/* ===== SKYDOC (scoped) ===== */
+.skydoc, .pdf {
+  --radius: 0.75rem;
+  --navy: #001952; --blue: #043775; --teal: #12769E; --cream: #FCF6F3;
+  --background: #FCF6F3;
+  --foreground: #001952;
+  --card: oklch(1 0 0 / 0.75);
+  --card-foreground: #001952;
+  --popover: #ffffff;
+  --popover-foreground: #001952;
+  --primary: #043775;
+  --primary-glow: #12769E;
+  --primary-foreground: #FCF6F3;
+  --secondary: oklch(0.96 0.012 250);
+  --secondary-foreground: #043775;
+  --muted: oklch(0.95 0.01 250);
+  --muted-foreground: oklch(0.5 0.04 255);
+  --accent: oklch(0.93 0.03 240 / 0.7);
+  --accent-foreground: #001952;
+  --cyan: #12769E;
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: #ffffff;
+  --border: oklch(0.4 0.08 255 / 0.1);
+  --input: oklch(0.4 0.08 255 / 0.14);
+  --ring: #12769E;
+  --panel: oklch(1 0 0 / 0.62);
+  --panel-2: oklch(1 0 0 / 0.78);
+  --gradient-bg: radial-gradient(1100px 650px at 0% 0%, oklch(0.9 0.05 230 / 0.55), transparent 60%),
+    radial-gradient(900px 600px at 100% 100%, oklch(0.88 0.06 210 / 0.45), transparent 60%),
+    radial-gradient(700px 500px at 70% 0%, oklch(0.94 0.04 320 / 0.35), transparent 60%),
+    #FCF6F3;
+  --gradient-primary: linear-gradient(135deg, #001952, #043775 45%, #12769E);
+  --holo: conic-gradient(from var(--holo-a), #12769E, oklch(0.8 0.12 220), oklch(0.85 0.1 320), oklch(0.9 0.09 80), #043775, #12769E);
+  --shadow-glow: 0 0 0 1px oklch(0.55 0.12 230 / 0.25), 0 14px 40px -14px oklch(0.45 0.14 245 / 0.45);
+}
+.skydoc {
+  background: var(--gradient-bg);
+  background-attachment: fixed;
+  color: var(--foreground);
+  font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.skydoc::-webkit-scrollbar, .skydoc *::-webkit-scrollbar { width: 8px; height: 8px; }
+.skydoc *::-webkit-scrollbar-thumb { background: oklch(0.5 0.08 245 / 0.25); border-radius: 8px; }
+
+@utility sd-glass {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.9), 0 20px 60px -30px oklch(0.3 0.08 255 / 0.25);
+}
+@utility sd-glass-2 {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+}
+@utility bg-gradient-primary { background: var(--gradient-primary); color: var(--primary-foreground); }
+@utility shadow-glow { box-shadow: var(--shadow-glow); }
+@utility nav-item {
+  display: flex; align-items: center; gap: .65rem; padding: .5rem .7rem; border-radius: .6rem;
+  font-size: .82rem; color: var(--muted-foreground); transition: all .2s;
+  &:hover { background: var(--accent); color: var(--foreground); }
+}
+@utility icon-btn {
+  display: inline-grid; place-items: center; height: 2rem; min-width: 2rem; padding: 0 .4rem; border-radius: .5rem;
+  color: var(--muted-foreground); transition: all .15s;
+  &:hover { background: var(--accent); color: var(--foreground); }
+}
+
+@keyframes float-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes pulse-glow { 0%,100% { box-shadow: 0 0 0 0 oklch(0.55 0.12 220 / .5);} 50% { box-shadow: 0 0 0 8px oklch(0.55 0.12 220 / 0);} }
+@keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
+.anim-in { animation: float-in .45s ease both; }
+.pulse-glow { animation: pulse-glow 2s infinite; }
+.shimmer { background: linear-gradient(90deg, transparent, oklch(0.6 0.1 220 / .3), transparent); background-size: 200% 100%; animation: shimmer 1.6s linear infinite; }
+
+/* ---------- Document styles ---------- */
+.doc { color: var(--foreground); font-size: 13px; line-height: 1.6; outline: none; }
+.doc > * { margin-bottom: 1.4rem; }
+.doc h1 { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+.doc h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: .7rem; }
+.doc h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+.doc p { margin-bottom: .5rem; }
+.doc mark { background: none; color: var(--cyan); }
+.doc a { color: var(--cyan); text-decoration: underline; }
+.doc img { border-radius: .9rem; max-width: 100%; }
+.doc .doc-sub { color: var(--muted-foreground); font-weight: 600; margin-top: .4rem; }
+.doc .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem; }
+.doc .doc-grid > * { margin: 0; }
+.doc .doc-card { border-radius: 1rem; padding: 1.1rem 1.2rem; background: oklch(1 0 0 / .85); box-shadow: 0 10px 30px -20px oklch(0.3 0.08 255 / .3); border: 1px solid var(--border); }
+.doc .doc-accent { border-color: var(--primary); background: linear-gradient(135deg, oklch(0.96 0.03 240 / .9), oklch(0.98 0.02 300 / .8)); color: var(--foreground); border-color: oklch(0.6 0.1 230 / .3); }
+.doc .doc-accent h2 { color: var(--foreground); }
+.doc .doc-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: .6rem; }
+.doc .doc-stat { text-align: center; padding: .9rem .6rem; border-radius: .8rem; background: oklch(1 0 0 / .8); border: 1px solid var(--border); }
+.doc .doc-stat strong { display: block; font-size: 1.35rem; font-weight: 700; }
+.doc .doc-stat span { font-size: .68rem; color: var(--cyan); }
+.doc .doc-checks { list-style: none; padding: 0; }
+.doc .doc-checks li { position: relative; padding-left: 1.8rem; margin-bottom: .7rem; color: var(--cyan); }
+.doc .doc-checks li::before { content: "✓"; position: absolute; left: 0; top: .1rem; width: 1.1rem; height: 1.1rem; border-radius: 99px; background: var(--primary); color: var(--primary-foreground); font-size: .65rem; display: grid; place-items: center; }
+.doc .doc-steps { list-style: none; padding: 0; counter-reset: s; }
+.doc .doc-steps li { counter-increment: s; position: relative; padding-left: 2.2rem; margin-bottom: .9rem; }
+.doc .doc-steps li::before { content: counter(s); position: absolute; left: 0; top: 0; width: 1.4rem; height: 1.4rem; border-radius: 99px; background: oklch(0.94 0.03 235); border: 1px solid var(--primary); font-size: .7rem; display: grid; place-items: center; }
+.doc .doc-steps b { display: block; font-weight: 600; }
+.doc .doc-steps small { color: var(--muted-foreground); }
+.doc .doc-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .6rem; }
+.doc .doc-kpi { padding: .8rem; border-radius: .8rem; background: oklch(1 0 0 / .8); border: 1px solid var(--border); }
+.doc .doc-kpi small { display: block; color: var(--muted-foreground); font-size: .7rem; }
+.doc .doc-kpi strong { display: block; font-size: 1.3rem; font-weight: 700; }
+.doc .doc-kpi span { font-size: .65rem; color: var(--muted-foreground); }
+.doc .doc-callout { border-left: 3px solid var(--primary); padding: .8rem 1rem; border-radius: .6rem; background: oklch(0.95 0.03 230 / .6); }
+.doc .doc-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.doc .doc-table th, .doc .doc-table td { border: 1px solid var(--border); padding: .45rem .6rem; text-align: left; }
+.doc .doc-table th { background: oklch(0.95 0.02 240); }
+.doc .is-selected { outline: 2px solid var(--primary-glow); outline-offset: 4px; border-radius: .6rem; box-shadow: 0 0 30px -6px oklch(0.55 0.12 220 / .5); }
+.doc .is-hover { outline: 1px dashed oklch(0.5 0.1 230 / .5); outline-offset: 4px; }
+
+
+@property --holo-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes holo-spin { to { --holo-a: 360deg; } }
+@utility sd-holo {
+  position: relative;
+  &::before {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+    background: var(--holo); animation: holo-spin 7s linear infinite; opacity: .55;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  }
+}
+@utility holo-fill { background: var(--holo); animation: holo-spin 9s linear infinite; }
+@utility sd-holo-text {
+  background: linear-gradient(100deg, var(--foreground) 30%, #043775, #12769E, var(--foreground) 80%);
+  background-size: 200% 100%; background-clip: text; color: transparent; animation: shimmer 8s linear infinite;
+}
+@utility sk-bento {
+  background: linear-gradient(160deg, oklch(1 0 0 / .9), oklch(0.98 0.01 240 / .7));
+  border: 1px solid var(--border); backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: inset 0 1px 0 oklch(1 0 0 / .9), 0 10px 30px -18px oklch(0.3 0.08 255 / .25); transition: transform .25s, box-shadow .25s;
+  &:hover { transform: translateY(-2px); box-shadow: var(--shadow-glow); }
+}
+.edge-hint { position: fixed; top: 50%; z-index: 40; width: 4px; height: 90px; transform: translateY(-50%); border-radius: 99px; background: var(--holo); animation: holo-spin 5s linear infinite; opacity: .6; transition: opacity .3s; pointer-events: none; }
+
+.doc:empty::before { content: attr(data-placeholder); color: var(--muted-foreground); pointer-events: none; }
+.doc .doc-figure { margin: 0 0 1.4rem; }
+.doc .doc-figure img { width: 100%; display: block; }
+.doc .doc-figure figcaption { font-size: .7rem; color: var(--muted-foreground); margin-top: .4rem; text-align: center; }
+.doc .doc-iconrow { display: flex; flex-wrap: wrap; gap: .8rem; }
+.doc .doc-icon { display: inline-grid; place-items: center; width: 3rem; height: 3rem; border-radius: .9rem; color: var(--cyan); background: oklch(0.94 0.03 235); border: 1px solid var(--border); vertical-align: middle; margin-right: .5rem; }
+.doc .doc-icon svg { width: 1.6rem; height: 1.6rem; }
+.doc .doc-toc { padding: 1rem 1.2rem; border-radius: 1rem; border: 1px solid var(--border); }
+.doc .doc-toc ol { padding-left: 1.2rem; list-style: decimal; }
+.doc .doc-toc li.sub { margin-left: 1rem; list-style: circle; color: var(--muted-foreground); }
+.doc .drop-before { box-shadow: 0 -3px 0 var(--primary-glow); }
+.doc .drop-after { box-shadow: 0 3px 0 var(--primary-glow); }
+
+/* ---------- PDF export (light, print-ready) ---------- */
+html:has(body.pdf), body.pdf { background: oklch(1 0 0) !important; }
+.pdf {
+  --foreground: oklch(0.22 0.03 275); --muted-foreground: oklch(0.5 0.03 275); --border: oklch(0.88 0.02 280);
+  --cyan: oklch(0.48 0.16 255); --primary: oklch(0.52 0.24 285); --primary-foreground: oklch(1 0 0);
+  color: var(--foreground); margin: 0; padding: 0; print-color-adjust: exact;
+}
+.pdf .doc { font-size: 10.5pt; }
+.pdf .doc h1 { font-size: 26pt; color: var(--primary); }
+.pdf .doc .doc-hero { padding-bottom: 12pt; border-bottom: 2px solid var(--primary); }
+.pdf .doc .doc-card, .pdf .doc .doc-stat, .pdf .doc .doc-kpi, .pdf .doc .doc-toc { background: oklch(0.975 0.008 285); }
+.pdf .doc .doc-accent { background: linear-gradient(135deg, oklch(0.95 0.04 290), oklch(0.96 0.03 250)); color: var(--foreground); }
+.pdf .doc .doc-table th { background: oklch(0.95 0.02 285); }
+.pdf .doc .doc-callout { background: oklch(0.96 0.03 290); }
+.pdf .doc .doc-steps li::before { background: oklch(0.94 0.04 290); }
+.pdf .doc .doc-icon { background: oklch(0.95 0.03 290); }
+.pdf-head { display: flex; justify-content: space-between; font-size: 8pt; color: var(--muted-foreground); border-bottom: 1px solid var(--border); padding-bottom: 6pt; margin-bottom: 18pt; }
+@media print {
+  @page { size: A4; margin: 16mm 14mm; }
+  .pdf .doc-card, .pdf .doc-stat, .pdf .doc-kpi, .pdf li, .pdf table, .pdf figure, .pdf blockquote { break-inside: avoid; }
+  .pdf h1, .pdf h2, .pdf h3 { break-after: avoid; }
+}
+

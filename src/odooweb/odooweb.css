@@ -1,0 +1,52 @@
+/* Odoo Site Studio — scoped under .odooweb-theme so it never restyles other apps. */
+.odooweb-theme {
+  --radius: 0.75rem;
+  --font-display: "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --background: oklch(0.963 0.014 84);
+  --foreground: oklch(0.195 0.009 70);
+  --card: oklch(0.995 0.004 90);
+  --card-foreground: oklch(0.195 0.009 70);
+  --popover: oklch(0.995 0.004 90);
+  --popover-foreground: oklch(0.195 0.009 70);
+  --primary: oklch(0.535 0.142 38);
+  --primary-foreground: oklch(0.985 0.008 90);
+  --secondary: oklch(0.925 0.018 84);
+  --secondary-foreground: oklch(0.28 0.012 70);
+  --muted: oklch(0.93 0.014 84);
+  --muted-foreground: oklch(0.5 0.018 70);
+  --accent: oklch(0.44 0.055 155);
+  --accent-foreground: oklch(0.985 0.008 90);
+  --destructive: oklch(0.55 0.2 27);
+  --destructive-foreground: oklch(0.985 0.008 90);
+  --border: oklch(0.885 0.018 84);
+  --input: oklch(0.885 0.018 84);
+  --ring: oklch(0.535 0.142 38);
+  --chart-1: oklch(0.535 0.142 38);
+  --chart-2: oklch(0.44 0.055 155);
+  --chart-3: oklch(0.6 0.09 60);
+  --chart-4: oklch(0.42 0.03 250);
+  --chart-5: oklch(0.7 0.05 84);
+  --sidebar: oklch(0.945 0.016 84);
+  --sidebar-foreground: oklch(0.195 0.009 70);
+  --sidebar-primary: oklch(0.535 0.142 38);
+  --sidebar-primary-foreground: oklch(0.985 0.008 90);
+  --sidebar-accent: oklch(0.925 0.018 84);
+  --sidebar-accent-foreground: oklch(0.28 0.012 70);
+  --sidebar-border: oklch(0.885 0.018 84);
+  --sidebar-ring: oklch(0.535 0.142 38);
+  font-family: var(--font-body);
+}
+.odooweb-theme h1, .odooweb-theme h2, .odooweb-theme h3, .odooweb-theme .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+.odooweb-theme .font-mono { font-family: var(--font-mono); }
+.odooweb-theme .label-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}

@@ -1,0 +1,1 @@
+- KOOKY: src/kooky, URL /kooky/*, `ky_` tables via `ky()`, `.kooky-theme`; step stream at /api/kooky-step (self-verifies bearer); Odoo creds from shared `odoo_connections` mapped by `toKyConn`, AI via resolveAppAiModel("kooky").

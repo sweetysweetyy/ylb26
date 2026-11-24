@@ -1,0 +1,50 @@
+/* Dyap — scoped under .dyap-theme so it never restyles other apps. */
+.dyap-theme {
+  --background: hsl(222 47% 6%);
+  --foreground: hsl(210 40% 96%);
+  --card: hsl(222 41% 10%);
+  --card-foreground: hsl(210 40% 96%);
+  --popover: hsl(222 41% 10%);
+  --popover-foreground: hsl(210 40% 96%);
+  --primary: hsl(187 100% 45%);
+  --primary-foreground: hsl(222 47% 6%);
+  --secondary: hsl(336 100% 50%);
+  --secondary-foreground: hsl(210 40% 98%);
+  --muted: hsl(222 30% 16%);
+  --muted-foreground: hsl(215 20% 55%);
+  --accent: hsl(270 60% 55%);
+  --accent-foreground: hsl(210 40% 98%);
+  --destructive: hsl(0 84% 60%);
+  --border: hsl(222 30% 18%);
+  --input: hsl(222 30% 18%);
+  --ring: hsl(187 100% 45%);
+  --radius: 0.75rem;
+  --dyap-gradient-cyan: linear-gradient(135deg, hsl(187 100% 45%), hsl(187 80% 60%));
+  --dyap-gradient-mixed: linear-gradient(135deg, hsl(187 100% 45%), hsl(336 100% 50%));
+  --dyap-shadow-cyan: 0 0 30px -5px hsl(187 100% 45% / 0.3);
+  --dyap-shadow-magenta: 0 0 30px -5px hsl(336 100% 50% / 0.3);
+  --dyap-shadow-glass: 0 8px 32px 0 hsl(222 47% 4% / 0.5);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+}
+.dyap-theme h1, .dyap-theme h2, .dyap-theme h3, .dyap-theme h4, .dyap-theme .font-display { font-family: 'Space Grotesk', sans-serif; }
+.dyap-theme * { border-color: var(--border); }
+.dyap-theme .glass-card, .dyap-theme .glass-card-hover {
+  background: color-mix(in oklab, var(--card) 60%, transparent);
+  backdrop-filter: blur(24px);
+  border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
+  border-radius: 0.75rem;
+  box-shadow: var(--dyap-shadow-glass);
+}
+.dyap-theme .glass-card-hover { transition: all .3s; }
+.dyap-theme .glass-card-hover:hover { border-color: color-mix(in oklab, var(--primary) 30%, transparent); box-shadow: var(--dyap-shadow-cyan); }
+.dyap-theme .glow-cyan { box-shadow: var(--dyap-shadow-cyan); }
+.dyap-theme .glow-magenta { box-shadow: var(--dyap-shadow-magenta); }
+.dyap-theme .text-gradient { background-image: var(--dyap-gradient-mixed); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.dyap-theme .text-gradient-cyan { background-image: var(--dyap-gradient-cyan); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.dyap-theme .bg-gradient-mixed { background-image: var(--dyap-gradient-mixed); }
+.dyap-theme .bg-surface-elevated { background-color: hsl(222 35% 13%); }
+.dyap-theme .animate-pulse-glow { animation: dyap-pulse-glow 2s ease-in-out infinite; }
+@keyframes dyap-pulse-glow { 0%, 100% { opacity: 1; } 50% { opacity: .7; } }
+.dyap-theme .nav-bottom-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }

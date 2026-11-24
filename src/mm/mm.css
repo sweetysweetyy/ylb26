@@ -1,0 +1,113 @@
+/* MyMackenzy (scoped) */
+@theme inline {
+  --color-holo-1: var(--holo-1);
+  --color-holo-2: var(--holo-2);
+  --color-bento: var(--bento);
+}
+.mm-theme {
+  --radius: 1rem;
+  /* Premium bento: beige cream background, holographic accents */
+  --background: oklch(0.91 0.025 88); /* #E1DCC9 */
+  --foreground: oklch(0.22 0.04 320);
+  --card: oklch(0.97 0.01 88 / 0.6);
+  --card-foreground: oklch(0.22 0.04 320);
+  --popover: oklch(0.96 0.01 88);
+  --popover-foreground: oklch(0.22 0.04 320);
+  --primary: oklch(0.36 0.18 358); /* #810B38 burgundy */
+  --primary-foreground: oklch(0.97 0.02 200);
+  --secondary: oklch(0.86 0.02 88);
+  --secondary-foreground: oklch(0.22 0.04 320);
+  --muted: oklch(0.88 0.02 88 / 0.6);
+  --muted-foreground: oklch(0.42 0.03 320);
+  --accent: oklch(0.94 0.04 200); /* #DFF1F1 holo-cyan */
+  --accent-foreground: oklch(0.22 0.04 320);
+  --destructive: oklch(0.55 0.22 22);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.22 0.04 320 / 0.1);
+  --input: oklch(0.22 0.04 320 / 0.06);
+  --ring: oklch(0.36 0.18 358);
+
+  --holo-1: oklch(0.36 0.18 358); /* #810B38 */
+  --holo-2: oklch(0.94 0.04 200); /* #DFF1F1 */
+  --bento: oklch(0.97 0.01 88 / 0.55);
+
+  --shadow-opacity: 0.35;
+
+  --sidebar: oklch(0.94 0.015 88 / 0.7);
+  --sidebar-foreground: oklch(0.22 0.04 320);
+  --sidebar-primary: oklch(0.36 0.18 358);
+  --sidebar-primary-foreground: oklch(0.97 0.02 200);
+  --sidebar-accent: oklch(0.88 0.02 88 / 0.6);
+  --sidebar-accent-foreground: oklch(0.22 0.04 320);
+  --sidebar-border: oklch(0.22 0.04 320 / 0.1);
+  --sidebar-ring: oklch(0.36 0.18 358);
+  background-color: var(--background); color: var(--foreground);
+}
+.mm-theme h1,.mm-theme h2,.mm-theme h3,.mm-theme .font-display{font-family:var(--font-display);letter-spacing:-0.02em}
+@utility glass-panel {
+  background: var(--bento);
+  backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    0 8px 32px -8px color-mix(in oklab, var(--holo-1) calc(var(--shadow-opacity) * 30%), transparent),
+    inset 0 1px 0 color-mix(in oklab, white 40%, transparent);
+}
+
+@utility bento-card {
+  background: linear-gradient(135deg,
+    color-mix(in oklab, white 80%, transparent) 0%,
+    color-mix(in oklab, var(--holo-2) 25%, transparent) 100%);
+  backdrop-filter: blur(24px) saturate(160%);
+  border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
+  border-radius: var(--radius-2xl);
+  box-shadow:
+    0 10px 40px -12px color-mix(in oklab, var(--holo-1) calc(var(--shadow-opacity) * 25%), transparent),
+    inset 0 1px 0 color-mix(in oklab, white 60%, transparent);
+}
+
+@utility holo-gradient {
+  background: linear-gradient(135deg, var(--holo-1) 0%, var(--holo-2) 100%);
+}
+
+@utility holo-glow {
+  box-shadow:
+    0 0 28px -4px color-mix(in oklab, var(--holo-1) 50%, transparent),
+    0 8px 28px -8px color-mix(in oklab, var(--holo-2) 40%, transparent);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, var(--holo-1) 0%, oklch(0.55 0.2 340) 50%, var(--holo-2) 110%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility app-bg {
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 0%, color-mix(in oklab, var(--holo-2) 60%, transparent), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 0% 100%, color-mix(in oklab, var(--holo-1) 30%, transparent), transparent 70%),
+    var(--background);
+  min-height: 100vh;
+}
+
+@utility press {
+  transition: transform 120ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 120ms;
+}
+.press:active { transform: scale(0.96); }
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--holo-1) 60%, transparent); }
+  70% { box-shadow: 0 0 0 18px color-mix(in oklab, var(--holo-1) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.animate-pulse-ring { animation: pulse-ring 1.4s ease-out infinite; }
+
+@keyframes holo-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.animate-holo {
+  background-size: 200% 200%;
+  animation: holo-shift 6s ease infinite;
+}

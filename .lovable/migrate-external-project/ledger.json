@@ -1,0 +1,55 @@
+{
+  "source": "github",
+  "repository": "https://github.com/sweetysweetyy/ylb25",
+  "capabilities": [
+    {
+      "capability": "code",
+      "source": "github:sweetysweetyy/ylb25",
+      "outcome": "migrate",
+      "status": "complete",
+      "next_action": "none"
+    },
+    {
+      "capability": "schema",
+      "source": "supabase/migrations",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Connect external Supabase project in Project Settings -> General -> External Supabase (or enable Lovable Cloud) and apply migrations"
+    },
+    {
+      "capability": "records",
+      "source": "supabase",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Connect user's external Supabase project or import exported CSV/JSON records"
+    },
+    {
+      "capability": "auth_identities",
+      "source": "supabase",
+      "outcome": "migrate",
+      "status": "pending",
+      "next_action": "Connect user's external Supabase project"
+    },
+    {
+      "capability": "ai_features",
+      "source": "lovable_ai_gateway",
+      "outcome": "preserve",
+      "status": "ready",
+      "next_action": "LOVABLE_API_KEY is already configured"
+    },
+    {
+      "capability": "secrets",
+      "source": "env_vars",
+      "outcome": "preserve",
+      "status": "pending",
+      "next_action": "Configure optional third-party secrets (Mailgun, Google OAuth, LinkedIn, Gemini) if those integrations are used"
+    },
+    {
+      "capability": "verification",
+      "source": "build",
+      "outcome": "verify",
+      "status": "complete",
+      "next_action": "none"
+    }
+  ]
+}

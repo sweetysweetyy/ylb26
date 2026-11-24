@@ -1,0 +1,2 @@
+- PulseSupport: src/pulsesupport, URL /pulsesupport/*, public call page /pulsesupport-call/$agentId, `pst_` tables via `pst()`, `.pulsesupport-theme`; voice WebSocket at /api/pulsesupport-live (src/server.ts + root dev plugin), AI via resolveAppAiModel("pulsesupport").
+- PulseSupport reads Odoo creds only from the shared `odoo_connections` row (owner_id for public calls), so users configure Odoo once in Laboratory settings.

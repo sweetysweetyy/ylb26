@@ -1,0 +1,106 @@
+/* MemoTrack app (scoped) */
+@theme inline {
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --color-good: var(--good); --color-warn: var(--warn); --color-bad: var(--bad);
+  --color-holo-1: var(--holo-1); --color-holo-2: var(--holo-2); --color-holo-3: var(--holo-3); --color-holo-4: var(--holo-4);
+  --color-glass: var(--glass); --color-glass-border: var(--glass-border);
+}
+.memotrack {
+  --radius: 1.25rem;
+  --background: oklch(0.13 0.02 260);
+  --foreground: oklch(0.97 0.005 260);
+  --card: oklch(0.18 0.02 260);
+  --card-foreground: oklch(0.97 0.005 260);
+  --popover: oklch(0.18 0.02 260);
+  --popover-foreground: oklch(0.97 0.005 260);
+  --primary: oklch(0.82 0.13 210);
+  --primary-foreground: oklch(0.15 0.02 260);
+  --secondary: oklch(0.24 0.02 260);
+  --secondary-foreground: oklch(0.95 0.005 260);
+  --muted: oklch(0.22 0.02 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: oklch(0.26 0.03 260);
+  --accent-foreground: oklch(0.97 0.005 260);
+  --destructive: oklch(0.65 0.2 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.82 0.13 210);
+
+  --good: oklch(0.8 0.17 160);
+  --warn: oklch(0.83 0.15 80);
+  --bad: oklch(0.68 0.2 20);
+  --holo-1: oklch(0.82 0.13 210); /* cyan */
+  --holo-2: oklch(0.75 0.17 350); /* rose */
+  --holo-3: oklch(0.85 0.14 80);  /* amber */
+  --holo-4: oklch(0.8 0.15 160);  /* mint */
+  --glass: oklch(1 0 0 / 5%);
+  --glass-border: oklch(1 0 0 / 11%);
+
+  --gradient-holo: linear-gradient(120deg, var(--holo-1), var(--holo-2), var(--holo-3), var(--holo-4), var(--holo-1));
+  --shadow-glass: 0 1px 0 0 oklch(1 0 0 / 8%) inset, 0 20px 50px -20px oklch(0 0 0 / 60%);
+  --shadow-glow: 0 0 40px -8px oklch(0.82 0.13 210 / 45%);
+}
+.memotrack { min-height:100vh; color:var(--foreground); font-family:"Manrope",ui-sans-serif,system-ui,sans-serif; background-color:var(--background);
+  background-image: radial-gradient(60rem 40rem at 10% -10%, oklch(0.82 0.13 210 / 14%), transparent 60%), radial-gradient(50rem 35rem at 100% 0%, oklch(0.75 0.17 350 / 12%), transparent 60%), radial-gradient(50rem 40rem at 50% 120%, oklch(0.85 0.14 80 / 8%), transparent 60%); background-attachment:fixed; }
+.memotrack h1, .memotrack h2, .memotrack h3, .memotrack .font-display { font-family: var(--font-display); letter-spacing:-0.02em; }
+@utility glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  box-shadow: var(--shadow-glass);
+  border-radius: var(--radius-2xl);
+}
+
+@utility holo-text {
+  background: var(--gradient-holo);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: holo-shift 8s linear infinite;
+}
+
+@utility holo-border {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: var(--gradient-holo);
+    background-size: 300% 100%;
+    animation: holo-shift 6s linear infinite;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@utility holo-bg {
+  background: var(--gradient-holo);
+  background-size: 300% 100%;
+  animation: holo-shift 6s linear infinite;
+}
+
+@utility glow { box-shadow: var(--shadow-glow); }
+
+@utility rise {
+  animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes holo-shift {
+  to { background-position: 300% 0; }
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+@utility pulse-ring { animation: pulse-ring 1.6s ease-out infinite; }

@@ -1,0 +1,145 @@
+/* SkyVente — styles isolés sous .skyvente-theme */
+@theme inline {
+  --color-holo-1: var(--holo-1);
+  --color-holo-2: var(--holo-2);
+  --color-holo-3: var(--holo-3);
+  --color-success: var(--success);
+}
+
+.skyvente-theme {
+  --radius: 0.9rem;
+  --background: oklch(0.14 0.02 280);
+  --foreground: oklch(0.97 0.01 280);
+  --card: oklch(0.2 0.025 280 / 55%);
+  --card-foreground: oklch(0.97 0.01 280);
+  --popover: oklch(0.19 0.03 280);
+  --popover-foreground: oklch(0.97 0.01 280);
+  --primary: oklch(0.78 0.14 220);
+  --primary-foreground: oklch(0.14 0.02 280);
+  --secondary: oklch(0.26 0.03 280);
+  --secondary-foreground: oklch(0.97 0.01 280);
+  --muted: oklch(0.24 0.025 280);
+  --muted-foreground: oklch(0.72 0.03 280);
+  --accent: oklch(0.3 0.05 290);
+  --accent-foreground: oklch(0.97 0.01 280);
+  --destructive: oklch(0.65 0.22 20);
+  --destructive-foreground: oklch(0.98 0 0);
+  --success: oklch(0.78 0.17 155);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.78 0.14 220);
+  --holo-1: oklch(0.78 0.15 220);
+  --holo-2: oklch(0.72 0.2 310);
+  --holo-3: oklch(0.85 0.14 170);
+  --chart-4: oklch(0.83 0.16 85);
+  --chart-5: oklch(0.7 0.2 20);
+  --gradient-holo: linear-gradient(120deg, var(--holo-1), var(--holo-2) 50%, var(--holo-3));
+  --sidebar: oklch(0.17 0.025 280 / 70%);
+  --sidebar-foreground: oklch(0.97 0.01 280);
+  --sidebar-primary: oklch(0.78 0.14 220);
+  --sidebar-primary-foreground: oklch(0.14 0.02 280);
+  --sidebar-accent: oklch(0.28 0.04 285);
+  --sidebar-accent-foreground: oklch(0.97 0.01 280);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.78 0.14 220);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+.skyvente-theme * { border-color: var(--border); }
+.skyvente-theme h1, .skyvente-theme h2, .skyvente-theme h3, .skyvente-theme h4, .skyvente-theme .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+.skyvente-theme select option { background: var(--popover); color: var(--popover-foreground); }
+
+
+@utility sv-bg-holo {
+  background-image: var(--gradient-holo);
+}
+
+@utility sv-text-holo {
+  background-image: var(--gradient-holo);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility sv-glass {
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid var(--border);
+}
+
+@utility sv-bento {
+  background: var(--card);
+  backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 8px);
+  box-shadow: 0 1px 0 0 oklch(1 0 0 / 6%) inset, 0 20px 50px -25px oklch(0 0 0 / 60%);
+}
+
+@utility sv-holo-btn {
+  background-image: var(--gradient-holo);
+  box-shadow: 0 8px 30px -10px color-mix(in oklab, var(--holo-2) 70%, transparent);
+  &:hover {
+    filter: brightness(1.08);
+  }
+}
+
+@utility sv-app-bg {
+  background:
+    radial-gradient(60rem 40rem at 10% -10%, color-mix(in oklab, var(--holo-2) 22%, transparent), transparent 60%),
+    radial-gradient(50rem 35rem at 100% 10%, color-mix(in oklab, var(--holo-1) 20%, transparent), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, color-mix(in oklab, var(--holo-3) 14%, transparent), transparent 60%),
+    var(--background);
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.65; }
+}
+@utility sv-animate-pulse-soft {
+  animation: pulse-soft 2.2s ease-in-out infinite;
+}
+
+/* Field defaults */
+@utility sv-field {
+  width: 100%;
+  border-radius: 0.65rem;
+  border: 1px solid var(--input);
+  background: oklch(1 0 0 / 4%);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  outline: none;
+  &:focus {
+    border-color: var(--ring);
+  }
+}
+
+/* Print: only the document paper is printed */
+@media print {
+  @page { size: A4; margin: 0; }
+  body.skyvente-theme * { visibility: hidden !important; }
+  .print-area, .print-area * { visibility: visible !important; }
+  .print-area {
+    position: absolute !important;
+    left: 0; top: 0;
+    width: 210mm !important;
+    box-shadow: none !important;
+    transform: none !important;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body.skyvente-theme { background: white !important; }
+  /* Undo the on-screen zoom and any clipping parent so the full A4 page prints */
+  .scaled-preview, .scaled-preview-inner { width: auto !important; height: auto !important; transform: none !important; }
+  *:has(.print-area) { overflow: visible !important; transform: none !important; }
+  .print-area { border-radius: 0 !important; }
+}

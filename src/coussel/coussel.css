@@ -1,0 +1,46 @@
+/* Coussel (carrousels manuscrits) — every style scoped under .coussel-theme */
+@theme inline {
+  --color-csl-ink-soft: var(--csl-ink-soft);
+  --color-csl-marker: var(--csl-marker);
+  --color-csl-sunshine: var(--csl-sunshine);
+  --color-csl-moss: var(--csl-moss);
+}
+
+.coussel-theme {
+  --radius: 0.75rem;
+  --background: oklch(0.94 0.024 85);
+  --foreground: oklch(0.26 0.02 70);
+  --card: oklch(0.975 0.014 88);
+  --card-foreground: oklch(0.26 0.02 70);
+  --popover: oklch(0.975 0.014 88);
+  --popover-foreground: oklch(0.26 0.02 70);
+  --primary: oklch(0.26 0.02 70);
+  --primary-foreground: oklch(0.975 0.014 88);
+  --secondary: oklch(0.9 0.03 88);
+  --secondary-foreground: oklch(0.26 0.02 70);
+  --muted: oklch(0.91 0.024 86);
+  --muted-foreground: oklch(0.52 0.02 78);
+  --accent: oklch(0.88 0.06 80);
+  --accent-foreground: oklch(0.26 0.02 70);
+  --destructive: oklch(0.55 0.19 27);
+  --destructive-foreground: oklch(0.98 0.01 90);
+  --border: oklch(0.26 0.02 70 / 14%);
+  --input: oklch(0.26 0.02 70 / 18%);
+  --ring: oklch(0.6 0.17 38);
+  --csl-ink-soft: oklch(0.52 0.02 78);
+  --csl-marker: oklch(0.62 0.18 38);
+  --csl-sunshine: oklch(0.82 0.14 82);
+  --csl-moss: oklch(0.53 0.08 145);
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 33px, oklch(0.26 0.02 70 / 5%) 34px);
+}
+.coussel-theme * { border-color: var(--border); }
+.coussel-theme .csl-font-hand { font-family: "Caveat", cursive; }
+.coussel-theme .csl-sheet {
+  background-color: var(--card);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: 0 1px 0 oklch(0.26 0.02 70 / 8%);
+  outline: 1px solid var(--border);
+}
